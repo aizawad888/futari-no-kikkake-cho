@@ -129,3 +129,9 @@ SNSに書くほど大げさなことでもないし、とはいえ、反応が�
 - データベース: PostgreSQL
 - デプロイ先: Render
 - 使用予定のライブラリ: Devise（認証用）、Omniauth（SNS認証）、webpush gem（プッシュ通知）
+
+# 画面遷移図
+https://www.figma.com/design/zU6a8kK5fPeTmFU1DjT4lF/%E6%B0%97%E3%81%A5%E3%81%8D%E3%82%A2%E3%83%97%E3%83%AA-%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0-1&t=DUb7Ic9a31Fhi86D-1
+
+# ER図
+[![Image from Gyazo](https://i.gyazo.com/6356945ff707d878bc6708b4d771304a.png)](https://gyazo.com/6356945ff707d878bc6708b4d771304a)
