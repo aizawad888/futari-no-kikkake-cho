@@ -32,3 +32,9 @@ plugin :tmp_restart
 # Specify the PID file. Defaults to tmp/pids/server.pid in development.
 # In other environments, only set the PID file if requested.
 pidfile ENV["PIDFILE"] if ENV["PIDFILE"]
+
+bind "tcp://0.0.0.0:#{ENV.fetch("PORT") { 3000 }}"
+
+workers ENV.fetch("WEB_CONCURRENCY") { 1 }
+threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
+threads threads_count, threads_count
