@@ -1,0 +1,20 @@
+ja:
+  devise:
+    failure:
+      invalid: "メールアドレスまたはパスワードが正しくありません。"
+      not_found_in_database: "メールアドレスまたはパスワードが正しくありません。"
+      unauthenticated: "ログインが必要です。"
+      already_authenticated: "すでにログインしています。"
+      inactive: "アカウントが有効化されていません。"
+      locked: "アカウントがロックされています。"
+      timeout: "セッションがタイムアウトしました。もう一度ログインしてください。"
+      unconfirmed: "メールアドレスの本人確認が必要です。"
+    sessions:
+      signed_in: "ログインしました。"
+      signed_out: "ログアウトしました。"
+      already_signed_out: "既にログアウト済みです。"
+    passwords:
+      send_instructions: "パスワードリセット手順を送信しました。"
+      updated: "パスワードが正しく変更されました。"
+      updated_not_active: "パスワードが正しく変更されました。"
+  

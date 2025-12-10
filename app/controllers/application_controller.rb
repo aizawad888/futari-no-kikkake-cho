@@ -6,9 +6,9 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     # サインアップ時に追加カラムを許可
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :sex, :icon])
-    
+    devise_parameter_sanitizer.permit(:sign_up, keys: [ :name, :sex, :icon ])
+
     # アカウント編集時に追加カラムを許可（任意）
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :sex, :icon])
+    devise_parameter_sanitizer.permit(:account_update, keys: [ :name, :sex, :icon ])
   end
 end

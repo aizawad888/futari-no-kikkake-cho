@@ -1,9 +1,32 @@
 ja:
-  devise:
-    email: "メールアドレス"
-    password: "パスワード"
-    password_confirmation: "パスワード確認"
+  users:
+    sessions:
+      new:
+        sign_in: "ログイン"
+        email: "メールアドレス"
+        password: "パスワード"
+        remember_me: "ログイン情報を保持する"
+        submit: "ログイン"
+    registrations:
+      new:
+        sign_up: "新規登録"
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード確認"
+        name: "名前"
+        sex: "性別"
+        icon: "アイコンURL"
+        submit: "登録"
+    shared:
+      links:
+        log_in: "ログイン"
+        sign_up: "新規登録"
+        forgot_password: "パスワードをお忘れですか？"
+        resend_confirmation: "確認メールを再送"
+        resend_unlock: "ロック解除メールを再送"
+        sign_in_with: "%{provider}でサインイン"
+  header:
+    login: "ログイン"
+    logout: "ログアウト"
     sign_up: "新規登録"
-    name: "名前"
-    sex: "性別"
-    icon: "アイコンURL"
+

@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   before_create :generate_my_code
 
+  validates :email, presence: true, uniqueness: { case_sensitive: false }
+
   private
 
   def generate_my_code

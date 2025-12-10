@@ -1,0 +1,13 @@
+  <header class="p-4 bg-gray-100 flex justify-between items-center">
+  <h1><%= link_to "ふたりのきっかけ帳", root_path %></h1>
+  
+  <nav>
+    <% if user_signed_in? %>
+      <span><%= current_user.name || current_user.email %></span>
+      <%= link_to t('header.logout'), destroy_user_session_path, data: { turbo_method: :delete }, class: "ml-4" %>
+    <% else %>
+      <%= link_to t('header.login'), new_user_session_path, class: "mr-4" %>
+      <%= link_to t('header.sign_up'), new_user_registration_path %>
+    <% end %>
+  </nav>
+</header>
