@@ -18,7 +18,9 @@
   </head>
 
   <body>
-  <%= render "shared/header" %>
+    <% unless controller_name == 'sessions' && action_name == 'new' %>
+      <%= render "shared/header" %>
+    <% end %>
     <%= yield %>
   </body>
 </html>

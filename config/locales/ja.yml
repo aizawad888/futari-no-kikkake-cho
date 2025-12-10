@@ -29,4 +29,6 @@ ja:
     login: "ログイン"
     logout: "ログアウト"
     sign_up: "新規登録"
+  main:
+    index: "メインページ"
 

@@ -1,3 +1,6 @@
+<% content_for(:page_title, t('users.sessions.new.sign_in')) %>
+<% content_for(:show_back_button, true) %>
+
 <% if flash[:alert] %>
   <div class="text-red-500 mb-4" data-turbo-cache="false">
     <%= flash[:alert] %>
