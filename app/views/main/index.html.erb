@@ -45,12 +45,25 @@
 
           <!-- 右側: 投稿内容 -->
           <div class="flex flex-col flex-grow h-full">
-            <!-- 上: カテゴリ名・タイトル -->
+            <!-- 上: カテゴリ名 -->
             <p class="text-sm text-gray-500 mb-1">カテゴリ: <%= post.category.name %></p>
-            <h3 class="text-lg font-semibold text-gray-800 mb-2"><%= post.title %></h3>
-            <div class="mt-auto text-xs text-red-500 space-x-2">
-              <span>
-                <% hours_left = ((post.reveal_at - Time.current) / 1.hour).ceil %>
+
+            <!-- 上: タイトル・分岐設定 -->
+            <h3 class="text-lg font-semibold mb-2 <%= 'text-blue-600' if post.user != current_user && Time.current < post.reveal_at %>">
+              <% if post.user == current_user %>
+                <%= post.title %>
+              <% else %>
+                <% if Time.current < post.reveal_at %>
+                  <%= post.category.hint_text %>
+                <% else %>
+                  <%= post.title %>
+                <% end %>
+              <% end %>
+            </h3>
+            <!-- 上: 残り時間_残り1時間で赤字 -->
+            <div class="mt-auto text-xs space-x-2">
+              <% hours_left = ((post.reveal_at - Time.current) / 1.hour).ceil %>
+              <span class="<%= 'text-red-500 font-semibold' if hours_left <= 1 %>">
                 答え合わせまであと <%= hours_left %>時間！
               </span>
             </div>
