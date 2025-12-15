@@ -18,3 +18,9 @@
 </p>
 <p>作成日: <%= @post.created_at.strftime("%Y/%m/%d %H:%M") %></p>
 <p>答え合わせ日時: <%= @post.reveal_at.strftime("%Y/%m/%d %H:%M") %></p>
+
+
+<% if @post.user == current_user %>
+  <%= link_to "編集", "#" %>
+  <%= link_to "削除", "#", data: { confirm: "本当に削除しますか？" } %>
+<% end %>
