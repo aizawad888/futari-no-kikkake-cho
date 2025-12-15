@@ -4,5 +4,5 @@ Rails.application.routes.draw do
   root "pages#home"
   get "main", to: "main#index"
 
-  resources :posts, only: [:new, :create]
+  resources :posts, only: [ :new, :create ]
 end
