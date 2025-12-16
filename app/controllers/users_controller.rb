@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :ensure_my_code, only: [:show]
+  before_action :ensure_my_code, only: [ :show ]
 
   def show
     @user = current_user

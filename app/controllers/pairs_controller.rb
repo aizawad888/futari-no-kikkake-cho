@@ -1,5 +1,5 @@
 class PairsController < ApplicationController
-  before_action :set_pair, only: [:dissolve]
+  before_action :set_pair, only: [ :dissolve ]
 
   def new
     @pair = Pair.new
@@ -17,7 +17,7 @@ class PairsController < ApplicationController
     end
 
     # user_id の順序を統一(user_id の小さい方を user_id1 にする)
-    ids = [current_user.id, partner.id].sort
+    ids = [ current_user.id, partner.id ].sort
     @pair = Pair.find_or_initialize_by(user_id1: ids[0], user_id2: ids[1])
     @pair.active = true
 
@@ -32,7 +32,7 @@ class PairsController < ApplicationController
     @pair.update!(active: false)
 
     # my_code を新しいものに再生成（Userモデルに public メソッド作成済みの場合）
-    [@pair.user1, @pair.user2].each do |user|
+    [ @pair.user1, @pair.user2 ].each do |user|
       user.generate_my_code
     end
 

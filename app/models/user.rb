@@ -14,7 +14,7 @@ class User < ApplicationRecord
   def active_pair
     (pairs_as_user1 + pairs_as_user2).find(&:active)
   end
-  
+
   validates :email, presence: true, uniqueness: { case_sensitive: false }
 
   # ペアコードが空欄な場合の自動発行

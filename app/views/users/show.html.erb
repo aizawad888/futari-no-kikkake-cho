@@ -20,7 +20,8 @@
   <!-- ペアがない場合 -->
   <p>あなたのペアコード：<%= current_user.my_code %></p>
   <%= link_to "新しいペアを作成する", new_pair_path, class: "px-2 py-1 bg-pink-300 text-white rounded" %>
+  <%= button_to "ペアコードを再発行", regenerate_code_user_path(current_user), method: :post, local: true %>
 <% end %>
 
-<%= button_to "ペアコードを再発行", regenerate_code_user_path(current_user), method: :post, local: true %>
+
 
