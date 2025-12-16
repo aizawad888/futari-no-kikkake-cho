@@ -22,6 +22,20 @@
       <%= render "shared/header" %>
     <% end %>
 
+    <!-- フラッシュメッセージ -->
+    <% if flash[:alert] %>
+      <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+
+    <% if flash[:notice] %>
+      <div class="bg-green-100 text-green-700 p-3 rounded mb-4">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+
+
     <main>
       <%= yield %>
     </main>

@@ -1,0 +1,5 @@
+<% content_for(:page_title, "#{@post.title_for_view(current_user)} 編集中") %>
+
+<% content_for(:show_back_button, true) %>
+
+<%= render "form", post: @post %>
