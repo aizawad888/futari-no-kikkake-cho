@@ -25,11 +25,13 @@
         <!-- ログイン中：ユーザー名とログアウトボタン -->
         <div class="hidden md:flex items-center space-x-4">
           <span class="text-sm text-gray-700"><%= current_user.name || current_user.email %></span>
-          <%= link_to t('header.logout'), destroy_user_session_path, 
-                      data: { turbo_method: :delete }, 
-                      class: "text-sm text-blue-600 hover:text-blue-800 transition" %>
+          <%= button_to t('header.logout'),
+            destroy_user_session_path,
+            method: :delete,
+            form: { class: "inline" },
+            class: "bg-transparent border-0 p-0 text-sm text-blue-600 hover:text-blue-800 transition cursor-pointer" %>
         </div>
-        
+
         <!-- スマホ用：ハンバーガーメニュー（オプション） -->
         <div class="md:hidden">
           <button type="button" class="text-gray-700" id="mobile-menu-button">

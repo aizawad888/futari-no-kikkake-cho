@@ -1,0 +1,34 @@
+<% if post.errors.any? %>
+  <ul class="text-red-500">
+    <% post.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: post, data: { turbo: false } do |f| %>
+
+  <div>
+    <%= f.label :title, "タイトル" %><br>
+    <%= f.text_field :title %>
+  </div>
+
+  <div>
+    <%= f.label :category_id, "カテゴリ" %><br>
+    <%= f.collection_select :category_id, Category.all, :id, :name %>
+  </div>
+
+  <div>
+    <%= f.label :sense_level, "優先度" %><br>
+    <%= f.select :sense_level,
+      Post.sense_levels.keys.map { |k| [Post.sense_level_jp_for(k), k] } %>
+  </div>
+
+  <div>
+    <%= f.label :reveal_at, "答え合わせ日時" %><br>
+    <%= f.datetime_select :reveal_at, discard_minute: true, required: true %>
+  </div>
+
+  <%= f.submit %>
+
+<% end %>
