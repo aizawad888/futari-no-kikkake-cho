@@ -31,13 +31,25 @@
   </div>
 
   <div class="field">
-    <%= f.label :sex, t('.sex') %><br>
-    <%= f.select :sex, [["男性", "male"], ["女性", "female"], ["その他", "other"]], include_blank: true %>
-  </div>
+  <%= f.label :sex, t('.sex') %><br>
+  <%= f.select :sex,
+        [["男性", "man"], ["女性", "woman"], ["その他", "other"]],
+        { include_blank: "選択してください" },
+        { required: true } %>
+</div>
+
 
   <div class="field">
     <%= f.label :icon, t('.icon') %><br>
-    <%= f.text_field :icon %>
+
+    <div class="icon-select">
+      <% (1..5).each do |i| %>
+        <label>
+          <%= f.radio_button :icon, "icon_user_#{i}.png", required: true %>
+          <%= image_tag "user_icons/icon_user_#{i}.png", size: "60x60" %>
+        </label>
+      <% end %>
+    </div>
   </div>
 
   <div class="actions">

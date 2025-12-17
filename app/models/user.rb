@@ -9,6 +9,9 @@ class User < ApplicationRecord
   # メモ
   has_many :post_memos, dependent: :destroy
 
+  #性別 変換
+  enum sex: { man: 0, woman: 1 , other:2 }
+
   # ペア
   has_many :pairs_as_user1, class_name: "Pair", foreign_key: :user_id1, dependent: :nullify
   has_many :pairs_as_user2, class_name: "Pair", foreign_key: :user_id2, dependent: :nullify
@@ -18,7 +21,11 @@ class User < ApplicationRecord
     (pairs_as_user1 + pairs_as_user2).find(&:active)
   end
 
+  #バリデーション
   validates :email, presence: true, uniqueness: { case_sensitive: false }
+  validates :name, presence: true
+  validates :sex, presence: true
+  validates :icon, presence: true
 
   # ユーザー作成時に自動でmy_codeを発行
   after_create :ensure_my_code

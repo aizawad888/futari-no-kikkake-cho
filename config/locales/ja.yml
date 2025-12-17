@@ -1,4 +1,10 @@
 ja:
+  enums:
+      user:
+        sex:
+          man: 男性
+          woman: 女性
+          other: その他
   users:
     sessions:
       new:

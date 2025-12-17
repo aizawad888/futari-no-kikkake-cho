@@ -69,11 +69,10 @@
               <% end %>
 
 
-
               <!-- 下: 投稿者・投稿時間・残り時間 -->
               <div class="flex items-center justify-end mt-auto text-xs text-gray-400 space-x-2">
                 <% if post.user.icon.present? %>
-                  <%= image_tag(post.user.icon, alt: post.user.name, class: "w-6 h-6 rounded-full") %>
+                  <%= image_tag("user_icons/#{post.user.icon}", alt: post.user.name, class: "w-6 h-6 rounded-full") %>
                 <% end %>
                 <span><%= post.user.name %></span>
                 <span><%= post.created_at.in_time_zone.strftime("%Y/%m/%d %H:%M") %></span>
