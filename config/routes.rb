@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
-    registrations: 'users/registrations'
+    registrations: "users/registrations"
   }
 
   root "pages#home"
   get "main", to: "main#index"
 
-   # ペアID登録ページ(新規登録後専用)
+  # ペアID登録ページ(新規登録後専用)
   get "onboarding/pair", to: "onboarding#pair", as: :onboarding_pair
   post "onboarding/pair", to: "onboarding#create_pair"
   patch "onboarding/skip", to: "onboarding#skip", as: :onboarding_skip
@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :pairs, only: [:new, :create, :destroy]
+  resources :pairs, only: [ :new, :create, :destroy ]
 
   resources :posts, only: [ :new, :create, :show, :edit, :update, :destroy ]
 end

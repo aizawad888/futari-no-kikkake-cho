@@ -1,6 +1,6 @@
 class OnboardingController < ApplicationController
   before_action :authenticate_user!
-  before_action :redirect_if_paired, only: [:pair]
+  before_action :redirect_if_paired, only: [ :pair ]
 
   def pair
     # ペアID登録ページを表示
@@ -8,7 +8,7 @@ class OnboardingController < ApplicationController
 
   def create_pair
     result = current_user.pair_with(params[:partner_code])
-    
+
     if result[:success]
       redirect_to main_path, notice: "ペアを作成しました"
     else

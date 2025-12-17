@@ -37,14 +37,14 @@ class User < ApplicationRecord
   # ペアコードで相手と紐付ける共通ロジック
   def pair_with(partner_code)
     partner = User.find_by(my_code: partner_code)
-    
+
     # バリデーション
     return { success: false, error: "ペアコードが間違っています" } if partner.nil?
     return { success: false, error: "自分自身とはペアを組めません" } if partner == self
     return { success: false, error: "どちらかのユーザーはすでにペアを組んでいます" } if active_pair || partner.active_pair
 
     # user_id の順序を統一
-    ids = [id, partner.id].sort
+    ids = [ id, partner.id ].sort
     pair = Pair.find_or_initialize_by(user_id1: ids[0], user_id2: ids[1])
     pair.active = true
 
@@ -63,9 +63,8 @@ class User < ApplicationRecord
     pair.update!(active: false)
 
     # my_code を新しいものに再生成
-    [pair.user1, pair.user2].each(&:generate_my_code)
+    [ pair.user1, pair.user2 ].each(&:generate_my_code)
 
     { success: true }
   end
 end
-

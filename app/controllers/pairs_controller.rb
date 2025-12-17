@@ -5,7 +5,7 @@ class PairsController < ApplicationController
 
   def create
     result = current_user.pair_with(params[:pair][:partner_code])
-    
+
     if result[:success]
       redirect_to user_path(current_user), notice: "ペアを作成しました"
     else
@@ -13,9 +13,9 @@ class PairsController < ApplicationController
     end
   end
 
-  def destroy  
+  def destroy
     result = current_user.unpair
-    
+
     if result[:success]
       redirect_to user_path(current_user), notice: "ペアを解消しました"
     else

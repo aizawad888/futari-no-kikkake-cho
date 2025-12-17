@@ -9,7 +9,7 @@ module ApplicationHelper
       "users/sessions",
       "onboarding/pairs"
     ]
-    
+
     !controller_path.in?(excluded_controllers)
   end
 end
