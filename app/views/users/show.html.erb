@@ -15,12 +15,12 @@
 <% if current_user.active_pair %>
   <!-- ペアがある場合 -->
   <p>パートナーの名前：<%= current_user.active_pair.partner(current_user).name %></p>
-  <%= button_to "ペア解消", dissolve_pair_path(current_user.active_pair), method: :patch, data: { confirm: "本当に解消しますか？" }, class: "px-2 py-1 bg-gray-300 rounded" %>
+  <%= button_to "ペア解消", pair_path(current_user.active_pair), method: :delete, data: { turbo_confirm: "本当に解消しますか?" }, class: "px-2 py-1 bg-gray-300 rounded" %>
 <% else %>
   <!-- ペアがない場合 -->
   <p>あなたのペアコード：<%= current_user.my_code %></p>
   <%= link_to "新しいペアを作成する", new_pair_path, class: "px-2 py-1 bg-pink-300 text-white rounded" %>
-  <%= button_to "ペアコードを再発行", regenerate_code_user_path(current_user), method: :post, local: true %>
+  <%= button_to "ペアコードを再発行", regenerate_code_user_path(current_user), method: :post %>
 <% end %>
 
 
