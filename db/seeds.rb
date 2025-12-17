@@ -1,3 +1,6 @@
+Post.delete_all
+Category.delete_all
+
 categories = [
   {
     name: "美容",
@@ -35,9 +38,9 @@ categories = [
     hint_text: "嬉しかったことがあったかも？"
   },
   {
-    name: "ふたりの時間",
-    icon: "icons/two.png",
-    hint_text: "ふたりのことで小さな変化があったかも？"
+    name: "おねがい",
+    icon: "icons/please.png",
+    hint_text: "お願いごとがあるみたい！"
   },
   {
     name: "トーク",
@@ -52,8 +55,5 @@ categories = [
 ]
 
 categories.each do |data|
-  Category.find_or_create_by(name: data[:name]) do |c|
-    c.icon = data[:icon]
-    c.hint_text = data[:hint_text]
-  end
+  Category.create!(data)
 end
