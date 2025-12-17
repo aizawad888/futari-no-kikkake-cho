@@ -17,10 +17,13 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: { case_sensitive: false }
 
+  # ユーザー作成時に自動でmy_codeを発行
+  after_create :ensure_my_code
+
   # ペアコードが空欄な場合の自動発行
   def ensure_my_code
-    generate_my_code if my_code.blank?
-    save! if changed?
+    return if my_code.present?  # 既にコードがあれば何もしない
+    generate_my_code
   end
 
   def generate_my_code
@@ -30,4 +33,39 @@ class User < ApplicationRecord
     end
     save!
   end
+
+  # ペアコードで相手と紐付ける共通ロジック
+  def pair_with(partner_code)
+    partner = User.find_by(my_code: partner_code)
+    
+    # バリデーション
+    return { success: false, error: "ペアコードが間違っています" } if partner.nil?
+    return { success: false, error: "自分自身とはペアを組めません" } if partner == self
+    return { success: false, error: "どちらかのユーザーはすでにペアを組んでいます" } if active_pair || partner.active_pair
+
+    # user_id の順序を統一
+    ids = [id, partner.id].sort
+    pair = Pair.find_or_initialize_by(user_id1: ids[0], user_id2: ids[1])
+    pair.active = true
+
+    if pair.save
+      { success: true, pair: pair }
+    else
+      { success: false, error: "ペアの作成に失敗しました" }
+    end
+  end
+
+  # ペア解消の共通ロジック
+  def unpair
+    pair = active_pair
+    return { success: false, error: "有効なペアが見つかりません" } if pair.nil?
+
+    pair.update!(active: false)
+
+    # my_code を新しいものに再生成
+    [pair.user1, pair.user2].each(&:generate_my_code)
+
+    { success: true }
+  end
 end
+

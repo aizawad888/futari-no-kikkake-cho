@@ -40,7 +40,8 @@
       <%= yield %>
     </main>
 
-    <% unless controller_path.start_with?("devise/") %>
+    <!-- フッター分岐 app/helpers/application_helper.rb ヘルパーメソッド -->
+    <% if show_footer? %>
       <%= render "shared/footer" %>
     <% end %>
 
