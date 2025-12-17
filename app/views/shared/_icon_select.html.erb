@@ -1,0 +1,35 @@
+<div class="field">
+  <%= f.label :icon %><br>
+  <div class="flex gap-2 border p-2 rounded icon-group">
+    <% (1..5).each do |i| %>
+      <label class="relative cursor-pointer">
+        <%= f.radio_button :icon, "icon_user_#{i}.png", class: "hidden", required: true %>
+        <%= image_tag "user_icons/icon_user_#{i}.png",
+                      size: "60x60",
+                      class: "rounded border-2 transition duration-150 ease-in-out" %>
+      </label>
+    <% end %>
+  </div>
+</div>
+
+<script>
+document.addEventListener("turbo:load", () => {
+  document.querySelectorAll(".icon-group").forEach(group => {
+    const labels = group.querySelectorAll("label");
+    labels.forEach(label => {
+      const input = label.querySelector("input[type=radio]");
+      const img = label.querySelector("img");
+
+      // 初期状態
+      if(input.checked) img.classList.add("border-blue-500");
+      else img.classList.add("border-transparent");
+
+      // クリック時
+      label.addEventListener("click", () => {
+        labels.forEach(l => l.querySelector("img").classList.replace("border-blue-500","border-transparent"));
+        img.classList.replace("border-transparent","border-blue-500");
+      });
+    });
+  });
+});
+</script>

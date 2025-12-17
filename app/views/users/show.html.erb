@@ -6,7 +6,16 @@
 <h2>マイページ</h2>
 
 <p>名前：<%= current_user.name %></p>
-<p>メール：<%= current_user.email %></p>
+<p>メール(変更不可)：<%= current_user.email %></p>
+<p>性別：<%= t("enums.user.sex.#{current_user.sex}") %></p>
+
+<% if current_user.icon.present? %>
+  <p>アイコン：</p>
+  <%= image_tag "user_icons/#{current_user.icon}", size: "60x60", class: "rounded " %>
+<% end %>
+
+<%= link_to "編集する", edit_user_path(current_user), class: "px-3 py-1 bg-green-400 text-white rounded" %>
+
 
 
 <hr class="my-4">

@@ -1,0 +1,31 @@
+<% content_for(:page_title, t('users.edit')) %>
+<% content_for(:show_back_button, true) %>
+
+
+<h2>マイページ編集</h2>
+
+<%= form_with model: @user, local: true do |f| %>
+  <!-- 名前 -->
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name, required: true %>
+  </div>
+
+  <!-- 性別 -->
+  <div class="field">
+    <%= f.label :sex %>
+    <%= f.select :sex,
+          [["男性", "man"], ["女性", "woman"], ["その他", "other"]],
+          { include_blank: "選択してください" },
+          { required: true } %>
+  </div>
+
+  <!-- アイコン -->
+  <%= render "shared/icon_select", f: f %>
+
+
+
+
+
+  <%= f.submit "更新", class: "px-3 py-1 bg-blue-400 text-white rounded" %>
+<% end %>

@@ -32,6 +32,7 @@ ja:
         resend_unlock: "ロック解除メールを再送"
         sign_in_with: "%{provider}でサインイン"
     show: "マイページ"
+    edit: "ユーザー情報編集"
   header:
     login: "ログイン"
     logout: "ログアウト"

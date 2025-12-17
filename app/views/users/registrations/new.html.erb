@@ -39,18 +39,8 @@
 </div>
 
 
-  <div class="field">
-    <%= f.label :icon, t('.icon') %><br>
+  <%= render "shared/icon_select", f: f %>
 
-    <div class="icon-select">
-      <% (1..5).each do |i| %>
-        <label>
-          <%= f.radio_button :icon, "icon_user_#{i}.png", required: true %>
-          <%= image_tag "user_icons/icon_user_#{i}.png", size: "60x60" %>
-        </label>
-      <% end %>
-    </div>
-  </div>
 
   <div class="actions">
     <%= f.submit t('.sign_up') %>

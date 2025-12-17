@@ -12,10 +12,8 @@ Rails.application.routes.draw do
   patch "onboarding/skip", to: "onboarding#skip", as: :onboarding_skip
 
 
-  resources :users, only: [ :show ] do
-    member do
-      post :regenerate_code
-    end
+  resources :users, only: [:show, :edit, :update] do
+    post :regenerate_code, on: :member
   end
 
   resources :pairs, only: [ :new, :create, :destroy ]
