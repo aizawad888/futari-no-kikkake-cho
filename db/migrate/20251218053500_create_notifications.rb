@@ -11,8 +11,8 @@ class CreateNotifications < ActiveRecord::Migration[7.2]
     end
 
     # インデックス
-    add_index :notifications, [:notifiable_type, :notifiable_id]
-    add_index :notifications, [:user_id, :read_at]
+    add_index :notifications, [ :notifiable_type, :notifiable_id ]
+    add_index :notifications, [ :user_id, :read_at ]
     add_index :notifications, :notification_kind
   end
 end

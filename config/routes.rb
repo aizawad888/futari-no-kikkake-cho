@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   resources :posts, only: [ :new, :create, :show, :edit, :update, :destroy ]
   resources :post_memos, only: [ :create, :update ]
 
-  resources :notifications, only: [:index] do
+  resources :notifications, only: [ :index ] do
     patch :mark_as_read, on: :member
   end
 end

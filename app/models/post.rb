@@ -80,6 +80,4 @@ class Post < ApplicationRecord
       notifiable: self
     )
   end
-
-
 end
