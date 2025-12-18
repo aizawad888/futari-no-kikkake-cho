@@ -56,6 +56,11 @@
               <!-- 上: タイトル・分岐設定 -->
               <h3 class="text-lg font-semibold mb-2 <%= 'text-blue-600' if post.user != current_user && Time.current < post.reveal_at %>">
                 <%= post.title_for_view(current_user) %>
+                <% if @last_viewed_at.nil? || post.created_at > @last_viewed_at %>
+                  <span class="ml-2 text-xs bg-pink-300 text-white px-2 py-0.5 rounded-full">
+                    New
+                  </span>
+                <% end %>
               </h3>
 
               <!-- 上: 残り時間_残り1時間で赤字、答えが公開されてない場合のみ -->

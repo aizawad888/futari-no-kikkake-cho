@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_12_17_054538) do
+ActiveRecord::Schema[7.2].define(version: 2025_12_18_053500) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +20,20 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_17_054538) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "notifiable_type"
+    t.bigint "notifiable_id"
+    t.string "notification_kind", null: false
+    t.datetime "read_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id"
+    t.index ["notification_kind"], name: "index_notifications_on_notification_kind"
+    t.index ["user_id", "read_at"], name: "index_notifications_on_user_id_and_read_at"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "pairs", force: :cascade do |t|
@@ -71,11 +85,13 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_17_054538) do
     t.string "my_code"
     t.string "partner_code"
     t.integer "sex"
+    t.datetime "last_viewed_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["my_code"], name: "index_users_on_my_code", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "notifications", "users"
   add_foreign_key "pairs", "users", column: "user_id1"
   add_foreign_key "pairs", "users", column: "user_id2"
   add_foreign_key "post_memos", "posts"

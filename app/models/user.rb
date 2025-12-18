@@ -3,10 +3,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  # 投稿
+  has_many :notifications, dependent: :destroy
+  has_many :user_notification_settings, dependent: :destroy
   has_many :posts, dependent: :destroy
-
-  # メモ
   has_many :post_memos, dependent: :destroy
 
   # 性別 変換

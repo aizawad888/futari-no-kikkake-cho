@@ -3,6 +3,7 @@ class Post < ApplicationRecord
   belongs_to :pair, optional: true
   belongs_to :category
   has_many :post_memos, dependent: :destroy
+  has_many :notifications, as: :notifiable, dependent: :destroy
 
   validates :title, presence: true
   validates :reveal_at, presence: true

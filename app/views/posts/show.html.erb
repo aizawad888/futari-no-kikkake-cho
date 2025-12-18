@@ -12,7 +12,7 @@
 <p>優先度: <%= @post.sense_level_jp %></p>
 <p>投稿者: 
 <% if @post.user.icon.present? %>
-  <%= image_tag(@post.user.icon, alt: @post.user.name, class: "w-8 h-8 rounded-full inline-block ml-2") %>
+  <%= image_tag("user_icons/#{@post.user.icon}", alt: @post.user.name, class: "w-8 h-8 rounded-full inline-block ml-2") %>
 <% end %>
 <%= @post.user.name %>
 </p>
