@@ -7,6 +7,9 @@ class User < ApplicationRecord
   has_many :user_notification_settings, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :post_memos, dependent: :destroy
+  has_many :notification_setting, dependent: :destroy
+
+  after_create :create_notification_settings
 
   # 性別 変換
   enum sex: { man: 0, woman: 1, other: 2 }
@@ -75,5 +78,34 @@ class User < ApplicationRecord
     [ pair.user1, pair.user2 ].each(&:generate_my_code)
 
     { success: true }
+  end
+
+# 通知設定を初期化（初回ログイン時などに実行）
+  def initialize_notification_settings!
+    UserNotificationSetting::NOTIFICATION_KINDS.each do |kind|
+      user_notification_settings.find_or_create_by!(notification_kind: kind) do |setting|
+        setting.push_enabled = true
+        setting.frequency = UserNotificationSetting::DEFAULT_FREQUENCIES[kind]
+      end
+    end
+  end
+
+  # 特定の通知種別が有効かどうか
+  def notification_enabled?(kind)
+    setting = user_notification_settings.find_by(notification_kind: kind)
+    setting&.should_notify? || false
+  end
+
+
+  private
+
+  def create_notification_settings
+    UserNotificationSetting::NOTIFICATION_KINDS.each do |kind|
+      user_notification_settings.create!(
+        notification_kind: kind,
+        push_enabled: true,
+        frequency: kind == "weekly_summary" ? "weekly" : "immediate"
+      )
+    end
   end
 end

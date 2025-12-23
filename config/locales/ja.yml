@@ -46,5 +46,19 @@ ja:
     new: "ペア作成"
   notifications:
     index: "通知一覧"
+  notification_settings:
+    show: "プッシュ通知設定"
+  notification_kinds:
+    new_post: "相手の投稿通知"
+    post_unlocked: "答え合わせ通知"
+    weekly_summary: "週間まとめ"
+    anniversary: "記念日通知"
+  notification_frequencies:
+    immediate: "すぐ通知"
+    daily: "1日1回"
+    weekly: "週1回"
+  notification_options:
+    immediate: "すぐ通知"
+    off: "通知しない"
 
 

@@ -18,7 +18,7 @@ class OnboardingController < ApplicationController
   end
 
   def skip
-    # ペアID登録をスキップして、メインページへ
+    Rails.logger.debug "🔥 skip action reached"
     redirect_to main_path, notice: "ペアID登録をスキップしました"
   end
 

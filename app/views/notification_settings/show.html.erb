@@ -1,0 +1,78 @@
+<% content_for(:page_title, t('notification_settings.show')) %>
+<% content_for(:show_back_button, true) %>
+<% content_for(:back_path, main_path) %>
+
+<div class="container mx-auto px-4 py-8">
+  <h2 class="text-2xl font-bold mb-6">通知設定</h2>
+
+  <%= form_with url: notification_settings_path, method: :patch, local: true do |f| %>
+    <div class="space-y-6">
+      
+      <% @notification_settings.each do |setting| %>
+        <div class="bg-white p-4 rounded-lg shadow">
+          <h3 class="font-bold text-lg mb-3">
+            <%= t("notification_kinds.#{setting.notification_kind}") %>
+          </h3>
+
+          <% case setting.notification_kind %>
+          <% when 'new_post' %>
+            <!-- ①相手の投稿通知：すぐ通知/1日1回/通知しない -->
+            <div class="form-group">
+              <%= label_tag "user_notification_settings[#{setting.id}][frequency]", "プッシュ通知：", class: "font-medium" %>
+              <%= select_tag "user_notification_settings[#{setting.id}][frequency]",
+                    options_for_select(
+                      [
+                        ["すぐ通知", "immediate"],
+                        ["1日1回", "daily"],
+                        ["通知しない", "none"]
+                      ],
+                      selected: setting.push_enabled ? (setting.frequency || 'immediate') : 'none'
+                    ),
+                    class: "form-select mt-1" %>
+            </div>
+
+          <% when 'weekly_summary' %>
+            <!-- ③週刊まとめ：週1回/通知しない -->
+            <div class="form-group">
+              <%= label_tag "user_notification_settings[#{setting.id}][frequency]", "プッシュ通知：", class: "font-medium" %>
+              <%= select_tag "user_notification_settings[#{setting.id}][frequency]",
+                    options_for_select(
+                      [
+                        ["週1回", "weekly"],
+                        ["通知しない", "none"]
+                      ],
+                      selected: setting.push_enabled ? 'weekly' : 'none'
+                    ),
+                    class: "form-select mt-1" %>
+            </div>
+
+          <% when 'post_unlocked', 'anniversary' %>
+            <!-- ②④答え合わせ通知・記念日通知：すぐ通知/通知しない -->
+            <div class="form-group">
+              <%= label_tag "user_notification_settings[#{setting.id}][frequency]", "プッシュ通知：", class: "font-medium" %>
+              <%= select_tag "user_notification_settings[#{setting.id}][frequency]",
+                    options_for_select(
+                      [
+                        ["すぐ通知", "immediate"],
+                        ["通知しない", "none"]
+                      ],
+                      selected: setting.push_enabled ? 'immediate' : 'none'
+                    ),
+                    class: "form-select mt-1" %>
+            </div>
+          <% end %>
+
+          <!-- デバッグ用：現在の設定表示 -->
+          <div class="mt-2 text-xs text-gray-500">
+            現在の設定: push_enabled=<%= setting.push_enabled %>, frequency=<%= setting.frequency || 'nil' %>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+
+    <div class="mt-6">
+      <%= submit_tag "保存する", class: "px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600" %>
+    </div>
+  <% end %>
+</div>

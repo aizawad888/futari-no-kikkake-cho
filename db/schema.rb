@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_12_18_053500) do
+ActiveRecord::Schema[7.2].define(version: 2025_12_23_033248) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -71,6 +71,17 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_18_053500) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
+  create_table "user_notification_settings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "notification_kind", null: false
+    t.boolean "push_enabled", default: true, null: false
+    t.string "frequency"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "notification_kind"], name: "index_user_notification_settings_unique", unique: true
+    t.index ["user_id"], name: "index_user_notification_settings_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -99,4 +110,5 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_18_053500) do
   add_foreign_key "posts", "categories"
   add_foreign_key "posts", "pairs"
   add_foreign_key "posts", "users"
+  add_foreign_key "user_notification_settings", "users"
 end
