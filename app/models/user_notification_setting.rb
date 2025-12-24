@@ -29,7 +29,7 @@ class UserNotificationSetting < ApplicationRecord
             presence: true,
             inclusion: { in: ->(r) { FREQUENCY_OPTIONS[r.notification_kind] } }
 
-  validates :push_enabled, inclusion: { in: [true, false], message: "must be true or false" }
+  validates :push_enabled, inclusion: { in: [ true, false ], message: "must be true or false" }
 
   # new_post だけ頻度変更可能
   def frequency_changeable?

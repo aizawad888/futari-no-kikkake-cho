@@ -15,7 +15,7 @@
 
   <!-- 検索欄（仮） -->
   <div class="flex items-center space-x-2">
-    <input type="text" placeholder="投稿の検索" class="flex-1 border rounded-lg px-3 py-2 text-sm" />
+    <input type="text" placeholder="投稿の検索（工事中）" class="flex-1 border rounded-lg px-3 py-2 text-sm" />
     <button class="px-4 py-2 text-sm bg-gray-200 rounded-lg">検索</button>
 
     <%= form_with url: "#", method: :get do |f| %>
@@ -29,11 +29,20 @@
       <h2 class="text-sm font-semibold text-gray-500 mb-2">
         最近の大事な投稿
       </h2>
-      <% @high_posts.each do |post| %>
-        <%= render "posts/post_card",
-            post: post,
-            last_viewed_at: @last_viewed_at %>
+
+      <% if @high_posts.any? %>
+        <% @high_posts.each do |post| %>
+          <%= render "posts/post_card",
+              post: post,
+              last_viewed_at: @last_viewed_at %>
+        <% end %>
+      <% else %>
+        <div class="text-sm text-gray-400 px-2">
+          なし
+        </div>
       <% end %>
+
+
       <h2 class="text-sm font-semibold text-gray-500 mb-2">
         通常投稿
      </h2>

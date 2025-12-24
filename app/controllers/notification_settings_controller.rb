@@ -36,7 +36,6 @@ class NotificationSettingsController < ApplicationController
           success = false
           raise ActiveRecord::Rollback
         end
-
       end
     end
 
