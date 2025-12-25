@@ -57,5 +57,3 @@ categories.each do |data|
     c.hint_text = data[:hint_text]
   end
 end
-
-

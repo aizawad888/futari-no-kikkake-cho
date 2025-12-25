@@ -2,15 +2,15 @@ Rails.application.routes.draw do
   get "notification_settings/show"
   get "notification_settings/update"
   get "notifications/index"
-  
+
   devise_for :users, controllers: {
     registrations: "users/registrations",
     sessions: "users/sessions"
   }
 
-  #デモモード
+  # デモモード
   devise_scope :user do
-    post 'demo_login', to: 'users/sessions#demo', as: :demo_login
+    post "demo_login", to: "users/sessions#demo", as: :demo_login
   end
 
   root "pages#home"
@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   resources :posts, only: [ :new, :create, :show, :edit, :update, :destroy ]
   resources :post_memos, only: [ :create, :update ]
 
-  resources :notifications, only: [:index] do
+  resources :notifications, only: [ :index ] do
     member do
       patch :mark_as_read  # ← memberブロック内に定義
     end
@@ -41,6 +41,4 @@ Rails.application.routes.draw do
 
 
   resource :notification_settings, only: [ :show, :update ]
-
-
 end

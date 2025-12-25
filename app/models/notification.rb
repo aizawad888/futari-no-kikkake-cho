@@ -4,10 +4,10 @@ class Notification < ApplicationRecord
 
   # 通知の種類を定義
   enum notification_kind: {
-    new_post: 'new_post',
-    post_unlocked: 'post_unlocked',
-    anniversary: 'anniversary',
-    weekly_summary: 'weekly_summary'
+    new_post: "new_post",
+    post_unlocked: "post_unlocked",
+    anniversary: "anniversary",
+    weekly_summary: "weekly_summary"
   }
 
   # 未読の通知を取得するスコープを追加
@@ -29,6 +29,6 @@ class Notification < ApplicationRecord
   end
 
   def post
-    notifiable if notifiable_type == 'Post'  
+    notifiable if notifiable_type == "Post"
   end
 end
