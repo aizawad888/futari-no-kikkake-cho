@@ -1,10 +1,16 @@
 ja:
   enums:
-      user:
-        sex:
-          man: 男性
-          woman: 女性
-          other: その他
+    user:
+      sex:
+        man: 男性
+        woman: 女性
+        other: その他
+    notification:
+      notification_kind:
+        new_post: "新しい投稿があったよ!"
+        post_unlocked: "答えが見られるようになったよ!"
+        anniversary: "今日は記念日だよ!"
+        weekly_summary: "今週のまとめだよ!"
   users:
     sessions:
       new:

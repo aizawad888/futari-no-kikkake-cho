@@ -22,6 +22,7 @@
 import "@hotwired/turbo-rails"
 import "@hotwired/stimulus"
 import "./controllers"
+import "./notifications"
 
 document.addEventListener('turbo:load', () => {
   const menuButton = document.getElementById('mobile-menu-button');

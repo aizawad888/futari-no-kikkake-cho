@@ -1,6 +1,3 @@
-Post.delete_all
-Category.delete_all
-
 categories = [
   {
     name: "美容",
@@ -55,5 +52,8 @@ categories = [
 ]
 
 categories.each do |data|
-  Category.create!(data)
+  Category.find_or_create_by!(name: data[:name]) do |c|
+    c.icon = data[:icon]
+    c.hint_text = data[:hint_text]
+  end
 end

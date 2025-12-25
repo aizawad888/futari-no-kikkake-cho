@@ -10,6 +10,9 @@ class Notification < ApplicationRecord
     weekly_summary: "weekly_summary"
   }
 
+  # 未読の通知を取得するスコープを追加
+  scope :unread, -> { where(read_at: nil) }
+
   # 既読判定
   def read?
     read_at.present?
@@ -22,15 +25,10 @@ class Notification < ApplicationRecord
 
   # 表示用メッセージ
   def message
-    case notification_kind
-    when "new_post"
-      "新しい投稿があったよ!"
-    when "post_unlocked"
-      "答えが見られるようになったよ!"
-    when "anniversary"
-      "今日は記念日だよ!"
-    when "weekly_summary"
-      "今週のまとめだよ!"
-    end
+    I18n.t("enums.notification.notification_kind.#{notification_kind}")
+  end
+
+  def post
+    notifiable if notifiable_type == "Post"
   end
 end

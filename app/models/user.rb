@@ -7,7 +7,6 @@ class User < ApplicationRecord
   has_many :user_notification_settings, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :post_memos, dependent: :destroy
-  has_many :notification_setting, dependent: :destroy
 
   after_create :create_notification_settings
 

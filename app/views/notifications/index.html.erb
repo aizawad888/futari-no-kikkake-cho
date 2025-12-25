@@ -1,35 +1,46 @@
-<% @notifications.each do |notification| %>
-  <div class="notification">
-    <%= button_to mark_as_read_notification_path(notification), method: :patch, class: "notification-button" do %>
+<div data-controller="notifications" class="container mx-auto px-4 py-6">
+  <h1 class="text-2xl font-bold mb-6">📬 通知一覧</h1>
+  
+  <% if @notifications.present? %>
+    <div class="space-y-3">
+      <% @notifications.each do |notification| %>
+        <%= link_to mark_as_read_notification_path(notification), 
+                    data: { turbo_method: :patch },
+                    class: "notification-item block border rounded-lg p-4 hover:shadow-md transition-all cursor-pointer
+                           #{notification.read? ? 'bg-white' : 'bg-blue-50 border-blue-200'}" do %>
+          
+          <div class="flex items-start justify-between">
+            <div class="flex-1">
+              <!-- 未読マーク -->
+              <% unless notification.read? %>
+                <span class="inline-block w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+              <% end %>
+              
+              <!-- 通知メッセージ -->
+              <span class="<%= 'font-bold text-gray-900' unless notification.read? %>">
+                <%= notification.message %>
+              </span>
 
-      <%# 未読マーク ● %>
-      <% if notification.read_at.nil? %>
-        <span class="text-xs text-blue-500 mr-1">●</span>
-      <% end %>
-
-      <%# メッセージ %>
-      <span>
-        <% case notification.notification_kind %>
-        <% when 'new_post' %>
-          📝 新しい投稿があります
-          <% if notification.notifiable.is_a?(Post) %>
-            : <%= notification.notifiable.title_for_view(current_user) %>
-          <% end %>
-        <% when 'post_unlocked' %>
-          🔓 答えが公開されました
-          <% if notification.notifiable.is_a?(Post) %>
-            : <%= notification.notifiable.title_for_view(current_user) %>
-          <% end %>
-        <% when 'anniversary' %>
-          🎉 記念日です
-        <% when 'weekly_summary' %>
-          📊 週間サマリーが公開されました
+              <!-- 投稿タイトルを表示 -->
+              <% if notification.post.present? %>
+                <div class="mt-1 text-sm text-gray-600">
+                  📝 <%= notification.post.title %>
+                </div>
+              <% end %>
+            </div>
+            
+            
+            <!-- 通知の作成時間 -->
+            <span class="text-sm text-gray-500 ml-4 whitespace-nowrap">
+              <%= time_ago_in_words(notification.created_at) %>前
+            </span>
+          </div>
         <% end %>
-      </span>
-
-      <%# 作成時間 %>
-      <small class="ml-1"><%= time_ago_in_words(notification.created_at) %>前</small>
-
-    <% end %>
-  </div>
-<% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-center py-12 text-gray-500">
+      <p class="text-lg">📭 通知はありません</p>
+    </div>
+  <% end %>
+</div>

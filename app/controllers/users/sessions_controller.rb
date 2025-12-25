@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
+  require "rake"
+  Rails.application.load_tasks
+
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
@@ -24,4 +27,13 @@ class Users::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
+
+  def demo
+    demo_user = DemoUserService.setup_and_return_user
+    sign_in demo_user
+    redirect_to main_path, notice: "デモモードでログインしました"
+  rescue StandardError => e
+    Rails.logger.error("デモモード初期化エラー: #{e.message}")
+    redirect_to root_path, alert: "デモモードの初期化に失敗しました"
+  end
 end
