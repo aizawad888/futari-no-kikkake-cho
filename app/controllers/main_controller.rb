@@ -51,4 +51,3 @@ private
     @show_demo_modal = session.delete(:show_demo_modal)  # nilなら表示されない
   end
 end
-

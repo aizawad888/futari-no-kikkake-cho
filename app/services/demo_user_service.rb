@@ -17,7 +17,7 @@ class DemoUserService
     private
 
     def cleanup
-      demo_users = User.where(email: [DEMO_USER1_EMAIL, DEMO_USER2_EMAIL])
+      demo_users = User.where(email: [ DEMO_USER1_EMAIL, DEMO_USER2_EMAIL ])
       return if demo_users.empty?
 
       ActiveRecord::Base.transaction do
@@ -52,7 +52,7 @@ class DemoUserService
         icon: "icon_user_3.png"
       )
 
-      [user1, user2]
+      [ user1, user2 ]
     end
 
     def create_pair(user1, user2)
@@ -101,7 +101,7 @@ class DemoUserService
         created_at: 30.minutes.ago
       )
 
-      [past_post1, past_post2, new_post]
+      [ past_post1, past_post2, new_post ]
     end
 
     def create_notifications(user1)
