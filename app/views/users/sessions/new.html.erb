@@ -1,45 +1,58 @@
 <% content_for(:page_title, t('users.sessions.new.sign_in')) %>
 <% content_for(:show_back_button, true) %>
 
-<% if flash[:alert] %>
-  <div class="text-red-500 mb-4" data-turbo-cache="false">
-    <%= flash[:alert] %>
-  </div>
-<% end %>
+<div class="min-h-[70vh] flex items-center justify-center px-4">
+  <div class="w-full max-w-md bg-white rounded-xl shadow p-6 space-y-6">
 
+    <% if flash[:alert] %>
+      <div class="bg-red-100 text-red-600 text-sm rounded-lg px-4 py-2" data-turbo-cache="false">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
 
-<h2 class="text-2xl font-bold mb-4">ここはログイン画面！</h2>
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email, t('.email') %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <h2 class="text-xl font-semibold text-center text-wood-dark">
+      ログイン
+    </h2>
 
-  <div class="field">
-    <%= f.label :password, t('.password') %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="space-y-4">
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me, t('.remember_me') %>
+        <div>
+          <%= f.label :email, t('.email'), class: "block text-sm text-gray-600 mb-1" %>
+          <%= f.email_field :email,
+                autofocus: true,
+                autocomplete: "email",
+                class: "w-full border rounded-lg px-3 py-2 text-sm" %>
+        </div>
+
+        <div>
+          <%= f.label :password, t('.password'), class: "block text-sm text-gray-600 mb-1" %>
+          <%= f.password_field :password,
+                autocomplete: "current-password",
+                class: "w-full border rounded-lg px-3 py-2 text-sm" %>
+        </div>
+
+        <% if devise_mapping.rememberable? %>
+          <div class="flex items-center text-sm text-gray-600">
+            <%= f.check_box :remember_me, class: "mr-2" %>
+            <%= f.label :remember_me, t('.remember_me') %>
+          </div>
+        <% end %>
+
+        <%= f.submit t('.sign_in'), class: "btn btn-primary w-full" %>
+      </div>
+    <% end %>
+
+    <div class="text-sm text-center text-gray-500">
+      <%= render "users/shared/links" %>
     </div>
-  <% end %>
 
-  <div class="actions">
-    <%= f.submit t('.sign_in') %>
+    <div class="pt-4 border-t text-center">
+      <%= button_to "デモで使ってみる",
+            demo_login_path,
+            method: :post,
+            class: "btn btn-secondary w-full" %>
+    </div>
+
   </div>
-<% end %>
-
-<%= render "users/shared/links" %>
-
-
-<div class="mt-6 text-center">
-  <%= button_to "デモで使ってみる",
-        demo_login_path,
-        method: :post,
-        class: "btn btn-secondary" %>
 </div>
-
-

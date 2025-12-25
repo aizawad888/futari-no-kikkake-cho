@@ -1,50 +1,87 @@
 <% content_for(:page_title, t('users.registrations.new.sign_up')) %>
 <% content_for(:show_back_button, true) %>
 
-<h2>ここはユーザー登録画面！</h2>
+<div class="max-w-md mx-auto px-4 py-8">
+  <div class="bg-white rounded-xl shadow-sm p-6 space-y-6">
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), data: { turbo: false }) do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
+    <h2 class="text-xl font-semibold text-forest-green text-center">
+      ユーザー登録
+    </h2>
 
-  <div class="field">
-    <%= f.label :email, t('.email') %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= form_for(resource,
+          as: resource_name,
+          url: registration_path(resource_name),
+          data: { turbo: false },
+          html: { class: "space-y-4" }) do |f| %>
+
+      <%= render "users/shared/error_messages", resource: resource %>
+
+      <!-- メールアドレス -->
+      <div>
+        <%= f.label :email, t('.email'),
+              class: "block text-sm text-wood-dark mb-1" %>
+        <%= f.email_field :email,
+              autofocus: true,
+              autocomplete: "email",
+              class: "w-full rounded-lg border border-wood-light px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sage" %>
+      </div>
+
+      <!-- パスワード -->
+      <div>
+        <%= f.label :password, t('.password'),
+              class: "block text-sm text-wood-dark mb-1" %>
+        <% if @minimum_password_length %>
+          <p class="text-xs text-gray-500 mb-1">
+            <%= @minimum_password_length %>文字以上
+          </p>
+        <% end %>
+        <%= f.password_field :password,
+              autocomplete: "new-password",
+              class: "w-full rounded-lg border border-wood-light px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sage" %>
+      </div>
+
+      <!-- パスワード確認 -->
+      <div>
+        <%= f.label :password_confirmation, t('.password_confirmation'),
+              class: "block text-sm text-wood-dark mb-1" %>
+        <%= f.password_field :password_confirmation,
+              autocomplete: "new-password",
+              class: "w-full rounded-lg border border-wood-light px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sage" %>
+      </div>
+
+      <!-- 名前 -->
+      <div>
+        <%= f.label :name, t('.name'),
+              class: "block text-sm text-wood-dark mb-1" %>
+        <%= f.text_field :name,
+              class: "w-full rounded-lg border border-wood-light px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sage" %>
+      </div>
+
+      <!-- 性別 -->
+      <div>
+        <%= f.label :sex, t('.sex'),
+              class: "block text-sm text-wood-dark mb-1" %>
+        <%= f.select :sex,
+              [["男性", "man"], ["女性", "woman"], ["その他", "other"]],
+              { include_blank: "選択してください" },
+              class: "w-full rounded-lg border border-wood-light px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-sage",
+              required: true %>
+      </div>
+
+      <!-- アイコン選択 -->
+      <%= render "shared/icon_select", f: f %>
+
+      <!-- 登録ボタン -->
+      <div class="pt-2">
+        <%= f.submit t('.sign_up'),
+              class: "w-full bg-accent-orange text-white py-3 rounded-lg font-semibold hover:bg-wood-dark transition" %>
+      </div>
+
+    <% end %>
+
+    <div class="text-center text-sm text-gray-500">
+      <%= render "users/shared/links" %>
+    </div>
+
   </div>
-
-  <div class="field">
-    <%= f.label :password, t('.password') %>
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation, t('.password_confirmation') %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <!-- 追加カラム -->
-  <div class="field">
-    <%= f.label :name, t('.name') %><br>
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="field">
-  <%= f.label :sex, t('.sex') %><br>
-  <%= f.select :sex,
-        [["男性", "man"], ["女性", "woman"], ["その他", "other"]],
-        { include_blank: "選択してください" },
-        { required: true } %>
 </div>
-
-
-  <%= render "shared/icon_select", f: f %>
-
-
-  <div class="actions">
-    <%= f.submit t('.sign_up') %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>

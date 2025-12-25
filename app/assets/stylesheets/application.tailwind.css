@@ -1,1 +1,29 @@
 @import "tailwindcss";
+
+@theme {
+  --color-forest-green: #707C57;
+  --color-sage: #B3B792;
+  --color-wood-dark: #725C3A;
+  --color-accent-orange: #DA983C;
+  --color-wood-light: #C39F78;
+  --color-cream: #E5D2B8;
+  --color-earth-brown: #90533B;
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center
+           rounded-lg px-6 py-2 text-sm font-medium
+           transition focus:outline-none;
+  }
+
+  .btn-primary {
+    @apply bg-accent-orange text-white
+           hover:bg-wood-dark;
+  }
+
+  .btn-secondary {
+    @apply bg-sage text-wood-dark
+           hover:bg-forest-green hover:text-white;
+  }
+}
