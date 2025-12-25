@@ -1,5 +1,6 @@
 class MainController < ApplicationController
   before_action :authenticate_user!
+  before_action :check_demo_mode
 
   def index
     # 既読処理 @last_viewed_at は New バッジ判定用（前回 index 表示時刻）
@@ -42,3 +43,12 @@ class MainController < ApplicationController
     end
   end
 end
+
+private
+
+  def check_demo_mode
+  if current_user&.email == DemoUserService::DEMO_USER1_EMAIL
+    @show_demo_modal = session.delete(:show_demo_modal)  # nilなら表示されない
+  end
+end
+

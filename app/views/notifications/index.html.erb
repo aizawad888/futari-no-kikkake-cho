@@ -1,3 +1,8 @@
+<% content_for(:page_title, t('notifications.index')) %>
+<% content_for(:show_back_button, false) %>
+<% content_for(:back_path, main_path) %>
+
+
 <div data-controller="notifications" class="container mx-auto px-4 py-6">
   <h1 class="text-2xl font-bold mb-6">📬 通知一覧</h1>
   
@@ -21,12 +26,17 @@
                 <%= notification.message %>
               </span>
 
-              <!-- 投稿タイトルを表示 -->
-              <% if notification.post.present? %>
-                <div class="mt-1 text-sm text-gray-600">
-                  📝 <%= notification.post.title %>
-                </div>
-              <% end %>
+              <!-- 投稿タイトル or ヒント -->
+              <div class="mt-1 text-sm text-gray-600">
+                📝
+                <% if notification.post.present? %>
+                  <% if notification.post.reveal_at <= Time.current %>
+                    <%= notification.post.title %>
+                  <% else %>
+                    <%= notification.post.category.hint_text %> <!-- カテゴリごとのヒントテキスト -->
+                  <% end %>
+                <% end %>
+              </div>
             </div>
             
             

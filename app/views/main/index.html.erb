@@ -1,5 +1,6 @@
 <% content_for(:page_title, t('main.index')) %>
 <% content_for(:show_back_button, false) %>
+<% content_for(:back_path, main_path) %>
 
 
 <div class="max-w-md mx-auto px-4 py-4 space-y-4">
@@ -65,6 +66,32 @@
   class: "fixed bottom-20 right-6 w-14 h-14 bg-pink-300 text-white rounded-full shadow-lg flex items-center justify-center text-3xl" do %>
   +
 <% end %>
+
+
+
+<!-- デモモード用 -->
+<% if @show_demo_modal %>
+  <div id="demo-modal" class="fixed inset-0 z-50 flex items-center justify-center">
+    <!-- 透過背景 -->
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+
+    <!-- モーダル本体 -->
+    <div class="relative bg-white rounded-lg p-6 max-w-md w-full shadow-lg z-10">
+      <h2 class="text-lg font-semibold mb-4">デモモードです</h2>
+      <ul class="list-disc list-inside space-y-2 text-sm text-gray-700">
+        <li>右下の+ボタンから投稿できます</li>
+        <li>サンプル投稿を押すと詳細画面に移動します</li>
+        <li>「お願いごとがあるみたい！」の投稿は答え合わせ前で、1分後に通知が届きます</li>
+        <li>マイページでアイコン変更やペア解消も体験できます</li>
+        <li>投稿や設定はログアウト時にリセットされます</li>
+        <li>デモモードを同時利用中はデータが上書きされることがあります</li>
+      </ul>
+      <button class="mt-4 px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 close-modal">閉じる</button>
+    </div>
+  </div>
+<% end %>
+
+
 
 
 
