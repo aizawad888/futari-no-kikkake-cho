@@ -1,3 +1,6 @@
+# ふたりの察し手帳
+Our SASSHI Journal
+
 # README
 
 ## サービス概要

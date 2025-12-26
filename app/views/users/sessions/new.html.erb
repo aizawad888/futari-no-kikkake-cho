@@ -1,6 +1,17 @@
 <% content_for(:page_title, t('users.sessions.new.sign_in')) %>
 <% content_for(:show_back_button, true) %>
 
+
+<div class="text-center space-y-2 mt-10">
+  <h1 class="font-fui text-3xl text-wood-dark">
+    ふたりの察し手帳
+  </h1>
+  <p class="text-sm text-sage">
+    小さな気づきを、ふたりで貯めていく
+  </p>
+</div>
+
+
 <div class="min-h-[70vh] flex items-center justify-center px-4">
   <div class="w-full max-w-md bg-white rounded-xl shadow p-6 space-y-6">
 
@@ -10,15 +21,18 @@
       </div>
     <% end %>
 
-    <h2 class="text-xl font-semibold text-center text-wood-dark">
+
+
+    <h2 class="text-xl font-semibold text-forest-green text-center">
       ログイン
     </h2>
+
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="space-y-4">
 
         <div>
-          <%= f.label :email, t('.email'), class: "block text-sm text-gray-600 mb-1" %>
+          <%= f.label :email, t('.email'), class: "block text-sm mb-1" %>
           <%= f.email_field :email,
                 autofocus: true,
                 autocomplete: "email",
@@ -26,14 +40,14 @@
         </div>
 
         <div>
-          <%= f.label :password, t('.password'), class: "block text-sm text-gray-600 mb-1" %>
+          <%= f.label :password, t('.password'), class: "block text-sm mb-1" %>
           <%= f.password_field :password,
                 autocomplete: "current-password",
                 class: "w-full border rounded-lg px-3 py-2 text-sm" %>
         </div>
 
         <% if devise_mapping.rememberable? %>
-          <div class="flex items-center text-sm text-gray-600">
+          <div class="flex items-center text-sm">
             <%= f.check_box :remember_me, class: "mr-2" %>
             <%= f.label :remember_me, t('.remember_me') %>
           </div>
@@ -43,7 +57,7 @@
       </div>
     <% end %>
 
-    <div class="text-sm text-center text-gray-500">
+    <div class="text-sm text-center">
       <%= render "users/shared/links" %>
     </div>
 

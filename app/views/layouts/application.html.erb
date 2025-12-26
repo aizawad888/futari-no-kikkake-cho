@@ -16,11 +16,16 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
 
-    
+     <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+
+
 
   </head>
 
-  <body>
+  <body class="font-sans text-forest-green">
     <% unless controller_name == 'sessions' && action_name == 'new' %>
       <%= render "shared/header" %>
     <% end %>

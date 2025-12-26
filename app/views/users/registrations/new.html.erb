@@ -19,7 +19,7 @@
       <!-- メールアドレス -->
       <div>
         <%= f.label :email, t('.email'),
-              class: "block text-sm text-wood-dark mb-1" %>
+              class: "block text-sm mb-1" %>
         <%= f.email_field :email,
               autofocus: true,
               autocomplete: "email",
@@ -29,9 +29,9 @@
       <!-- パスワード -->
       <div>
         <%= f.label :password, t('.password'),
-              class: "block text-sm text-wood-dark mb-1" %>
+              class: "block text-sm mb-1" %>
         <% if @minimum_password_length %>
-          <p class="text-xs text-gray-500 mb-1">
+          <p class="text-xs text-sage mb-1">
             <%= @minimum_password_length %>文字以上
           </p>
         <% end %>
@@ -43,7 +43,7 @@
       <!-- パスワード確認 -->
       <div>
         <%= f.label :password_confirmation, t('.password_confirmation'),
-              class: "block text-sm text-wood-dark mb-1" %>
+              class: "block text-sm mb-1" %>
         <%= f.password_field :password_confirmation,
               autocomplete: "new-password",
               class: "w-full rounded-lg border border-wood-light px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sage" %>
@@ -52,7 +52,7 @@
       <!-- 名前 -->
       <div>
         <%= f.label :name, t('.name'),
-              class: "block text-sm text-wood-dark mb-1" %>
+              class: "block text-sm mb-1" %>
         <%= f.text_field :name,
               class: "w-full rounded-lg border border-wood-light px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sage" %>
       </div>
@@ -60,7 +60,7 @@
       <!-- 性別 -->
       <div>
         <%= f.label :sex, t('.sex'),
-              class: "block text-sm text-wood-dark mb-1" %>
+              class: "block text-sm mb-1" %>
         <%= f.select :sex,
               [["男性", "man"], ["女性", "woman"], ["その他", "other"]],
               { include_blank: "選択してください" },

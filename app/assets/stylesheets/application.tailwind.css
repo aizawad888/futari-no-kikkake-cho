@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* ===== font-face ===== */
+@font-face {
+  font-family: 'HuiFont';
+  src: url('HuiFont29.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ===== theme ===== */
 @theme {
   --color-forest-green: #707C57;
   --color-sage: #B3B792;
@@ -8,8 +18,12 @@
   --color-wood-light: #C39F78;
   --color-cream: #E5D2B8;
   --color-earth-brown: #90533B;
+
+  --font-sans: "Noto Sans JP", sans-serif;
+  --font-logo: "HuiFont", cursive;
 }
 
+/* ===== components ===== */
 @layer components {
   .btn {
     @apply inline-flex items-center justify-center
@@ -18,12 +32,19 @@
   }
 
   .btn-primary {
-    @apply bg-accent-orange text-white
-           hover:bg-wood-dark;
+    @apply bg-accent-orange text-white hover:bg-wood-dark;
   }
 
   .btn-secondary {
-    @apply bg-sage text-wood-dark
-           hover:bg-forest-green hover:text-white;
+    @apply bg-sage text-wood-dark hover:bg-forest-green hover:text-white;
   }
+}
+
+/* ===== utilities ===== */
+.font-fui {
+  font-family: var(--font-logo);
+}
+
+body {
+  font-family: var(--font-sans);
 }
