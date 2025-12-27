@@ -25,10 +25,12 @@
 
   </head>
 
-  <body class="font-sans text-forest-green">
-    <% unless controller_name == 'sessions' && action_name == 'new' %>
+  <body>
+    <% unless (controller_name == 'sessions' && action_name == 'new') ||
+          (controller_name == 'home' && action_name == 'index') %>
       <%= render "shared/header" %>
     <% end %>
+
 
     <!-- フラッシュメッセージ -->
     <% if flash[:alert] %>

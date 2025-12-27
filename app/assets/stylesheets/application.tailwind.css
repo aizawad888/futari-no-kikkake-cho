@@ -17,10 +17,13 @@
   --color-accent-orange: #DA983C;
   --color-wood-light: #C39F78;
   --color-cream: #E5D2B8;
+  --color-light-cream: #F4ECE0;
   --color-earth-brown: #90533B;
 
-  --font-sans: "Noto Sans JP", sans-serif;
   --font-logo: "HuiFont", cursive;
+  --font-heading: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+  --font-body: "Yu Gothic", "游ゴシック体", "YuGothic",
+               "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
 }
 
 /* ===== components ===== */
@@ -28,11 +31,11 @@
   .btn {
     @apply inline-flex items-center justify-center
            rounded-lg px-6 py-2 text-sm font-medium
-           transition focus:outline-none;
+           transition focus:outline-none font-heading;
   }
 
   .btn-primary {
-    @apply bg-accent-orange text-white hover:bg-wood-dark;
+    @apply bg-accent-orange text-white hover:bg-earth-brown;
   }
 
   .btn-secondary {
@@ -41,10 +44,53 @@
 }
 
 /* ===== utilities ===== */
+
+/* ロゴ用 */
 .font-fui {
   font-family: var(--font-logo);
 }
 
-body {
-  font-family: var(--font-sans);
+/* 見出し用 */
+.font-heading {
+  font-family: var(--font-heading);
 }
+
+h1,h2,h3 {
+  font-weight: 600;
+  font-family: var(--font-heading);
+  color: var(--color-forest-green);
+}
+
+/* 本文用 */
+.font-body {
+  font-family: var(--font-body);
+}
+
+
+/* ===== body ===== */
+body {
+  font-family: var(--font-body);
+  color: var(--color-wood-dark);
+}
+
+/* ===== 背景 ===== */
+.bg-app {
+  background-color: var(--color-light-cream);
+}
+
+
+/* ===== ノートカード ===== */
+.card-notebook {
+  background-color: #ffffff;
+  background-image: url("grid.png");
+  background-repeat: repeat;
+  background-size: 32px 32px;
+  border-radius: 1rem;
+  padding: 3rem 2rem;
+  text-align: left;
+  line-height: 1.8;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+}
+
+
+

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root "home#index"
+
   get "notification_settings/show"
   get "notification_settings/update"
   get "notifications/index"
@@ -13,7 +15,6 @@ Rails.application.routes.draw do
     post "demo_login", to: "users/sessions#demo", as: :demo_login
   end
 
-  root "pages#home"
   get "main", to: "main#index"
 
   # ペアID登録ページ(新規登録後専用)

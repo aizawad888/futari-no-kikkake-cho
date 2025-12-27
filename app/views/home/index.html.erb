@@ -1,0 +1,73 @@
+<div class="min-h-screen bg-cream py-16 px-6">
+
+  <!-- ヒーロー -->
+  <div class="max-w-3xl mx-auto text-center mb-16">
+    <h1 class="text-5xl font-fui text-forest-green mb-4">ふたりの察し手帳</h1>
+    <p class="text-xl text-wood-dark mb-6">
+      小さな気づきを貯めて、そっと背中を押す
+    </p>
+    <div class="flex justify-center gap-4">
+      <%= link_to "はじめる", new_user_registration_path, class: "btn btn-primary" %>
+      <%= link_to "ログイン", new_user_session_path, class: "btn btn-secondary" %>
+    </div>
+  </div>
+
+  <!-- 特徴カード -->
+  <div class="max-w-5xl mx-auto grid gap-12 md:grid-cols-2">
+
+    <!-- カード1 -->
+    <div class="card-notebook flex flex-col items-start gap-3">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">✏️</span>
+        <h2 class="text-2xl font-semibold text-forest-green">普段言えないことを書ける</h2>
+      </div>
+      <p class="text-forest-green">
+        言いにくいこともそっと残せます。
+      </p>
+      <details class="text-sm text-wood-dark">
+        <summary class="cursor-pointer">詳しく見る</summary>
+        <p>「前髪きったよ」「お風呂洗っておいたよ」「いつもありがとう」「◯◯してほしいな」など、日常の小さな変化や感謝の気持ちを記録できます。</p>
+      </details>
+    </div>
+
+    <!-- カード2 -->
+    <div class="card-notebook flex flex-col items-start gap-3">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">🧠</span>
+        <h2 class="text-2xl font-semibold text-forest-green">相手の察して力を高める</h2>
+      </div>
+      <p class="text-forest-green">伝えずに「察して」ではなく、お互いを理解する努力をサポート。</p>
+      <details class="text-sm text-wood-dark">
+        <summary class="cursor-pointer">詳しく見る</summary>
+        <p>投稿内容はヒントだけ通知されるので、自然な形でコミュニケーションが生まれます。</p>
+      </details>
+    </div>
+
+    <!-- カード3 -->
+    <div class="card-notebook flex flex-col items-start gap-3">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">⏳</span>
+        <h2 class="text-2xl font-semibold text-forest-green">表示はすぐにされない</h2>
+      </div>
+      <p class="text-forest-green">一定時間ロックされ、相手が考える時間を確保。</p>
+      <details class="text-sm text-wood-dark">
+        <summary class="cursor-pointer">詳しく見る</summary>
+        <p>答えが公開されるまでのドキドキやワクワクを楽しめます。既読要素はなく、気軽に使えます。</p>
+      </details>
+    </div>
+
+    <!-- カード4 -->
+    <div class="card-notebook flex flex-col items-start gap-3">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">💬</span>
+        <h2 class="text-2xl font-semibold text-forest-green">リアルコミュニケーションを生む</h2>
+      </div>
+      <p class="text-forest-green">共通の話題が自然に生まれ、会話が増える。</p>
+      <details class="text-sm text-wood-dark">
+        <summary class="cursor-pointer">詳しく見る</summary>
+        <p>小さな変化を記録することで、相手の新しい一面に気づきやすくなり、日常会話や夜のトークが増えます。</p>
+      </details>
+    </div>
+
+  </div>
+</div>
