@@ -55,10 +55,9 @@
   font-family: var(--font-heading);
 }
 
-h1,h2,h3 {
+h1,h2,h3,h4 {
   font-weight: 600;
   font-family: var(--font-heading);
-  color: var(--color-forest-green);
 }
 
 /* 本文用 */

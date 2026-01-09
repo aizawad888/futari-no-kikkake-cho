@@ -1,73 +1,219 @@
-<div class="min-h-screen bg-cream py-16 px-6">
+<div class="min-h-screen bg-light-cream py-16 px-6">
 
   <!-- ヒーロー -->
-  <div class="max-w-3xl mx-auto text-center mb-16">
-    <h1 class="text-5xl font-fui text-forest-green mb-4">ふたりの察し手帳</h1>
-    <p class="text-xl text-wood-dark mb-6">
+  <div class="max-w-3xl mx-auto text-center mb-10">
+    <p class="text-center text-sm text-accent-orange underline decoration-dotted decoration-2 underline-offset-4 mb-4">
       小さな気づきを貯めて、そっと背中を押す
     </p>
+    <h1 class="text-5xl font-fui text-forest-green mb-10">ふたりの察し手帳</h1>
     <div class="flex justify-center gap-4">
       <%= link_to "はじめる", new_user_registration_path, class: "btn btn-primary" %>
       <%= link_to "ログイン", new_user_session_path, class: "btn btn-secondary" %>
     </div>
   </div>
 
-  <!-- 特徴カード -->
-  <div class="max-w-5xl mx-auto grid gap-12 md:grid-cols-2">
-
-    <!-- カード1 -->
-    <div class="card-notebook flex flex-col items-start gap-3">
-      <div class="flex items-center gap-2">
-        <span class="text-2xl">✏️</span>
-        <h2 class="text-2xl font-semibold text-forest-green">普段言えないことを書ける</h2>
-      </div>
-      <p class="text-forest-green">
-        言いにくいこともそっと残せます。
-      </p>
-      <details class="text-sm text-wood-dark">
-        <summary class="cursor-pointer">詳しく見る</summary>
-        <p>「前髪きったよ」「お風呂洗っておいたよ」「いつもありがとう」「◯◯してほしいな」など、日常の小さな変化や感謝の気持ちを記録できます。</p>
-      </details>
-    </div>
-
-    <!-- カード2 -->
-    <div class="card-notebook flex flex-col items-start gap-3">
-      <div class="flex items-center gap-2">
-        <span class="text-2xl">🧠</span>
-        <h2 class="text-2xl font-semibold text-forest-green">相手の察して力を高める</h2>
-      </div>
-      <p class="text-forest-green">伝えずに「察して」ではなく、お互いを理解する努力をサポート。</p>
-      <details class="text-sm text-wood-dark">
-        <summary class="cursor-pointer">詳しく見る</summary>
-        <p>投稿内容はヒントだけ通知されるので、自然な形でコミュニケーションが生まれます。</p>
-      </details>
-    </div>
-
-    <!-- カード3 -->
-    <div class="card-notebook flex flex-col items-start gap-3">
-      <div class="flex items-center gap-2">
-        <span class="text-2xl">⏳</span>
-        <h2 class="text-2xl font-semibold text-forest-green">表示はすぐにされない</h2>
-      </div>
-      <p class="text-forest-green">一定時間ロックされ、相手が考える時間を確保。</p>
-      <details class="text-sm text-wood-dark">
-        <summary class="cursor-pointer">詳しく見る</summary>
-        <p>答えが公開されるまでのドキドキやワクワクを楽しめます。既読要素はなく、気軽に使えます。</p>
-      </details>
-    </div>
-
-    <!-- カード4 -->
-    <div class="card-notebook flex flex-col items-start gap-3">
-      <div class="flex items-center gap-2">
-        <span class="text-2xl">💬</span>
-        <h2 class="text-2xl font-semibold text-forest-green">リアルコミュニケーションを生む</h2>
-      </div>
-      <p class="text-forest-green">共通の話題が自然に生まれ、会話が増える。</p>
-      <details class="text-sm text-wood-dark">
-        <summary class="cursor-pointer">詳しく見る</summary>
-        <p>小さな変化を記録することで、相手の新しい一面に気づきやすくなり、日常会話や夜のトークが増えます。</p>
-      </details>
-    </div>
-
+  <!-- Howto -->
+  <section class="py-20 mb-10">
+  <div class="text-center mb-16">
+    <h2 class="text-3xl font-semibold text-forest-green">
+      How to
+    </h2>
   </div>
+
+    <div class="max-w-4xl mx-auto px-4 space-y-20">
+
+      <!-- item -->
+      <div class="flex flex-col-reverse md:flex-row items-center gap-10">
+        <!-- イラスト  -->
+        <div class="w-full md:w-1/2 h-48 bg-white/60 rounded-xl z-10">
+        ここにいらすと
+        </div>
+
+        <!-- text -->
+        <div class="w-full md:w-1/2 relative">
+          <div class="absolute -top-10 -left-10">
+            <!-- big circle -->
+            <span class="absolute -top-3 -left-3 w-24 h-24 rounded-full bg-accent-orange/20 z-0"></span>
+            <!-- number -->
+            <span class="relative block w-24 h-24 flex items-center justify-center
+                        text-accent-orange font-semibold text-4xl">
+              1
+            </span>
+          </div>
+
+          <h4 class="font-semibold text-2xl mb-3 mt-6">普段言えないことをメモ</h4>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            「前髪を切った」「お風呂掃除した」など、<br>
+            相手に気づいてほしいことを気軽にさっと残します。
+          </p>
+        </div>
+      </div>
+
+
+      <!-- item -->
+      <div class="flex flex-col-reverse md:flex-row-reverse items-center gap-10">
+        <!-- イラスト  -->
+        <div class="w-full md:w-1/2 h-48 bg-white/60 rounded-xl z-10">
+        ここにいらすと
+        </div>
+
+        <!-- text -->
+        <div class="w-full md:w-1/2 relative">
+          <div class="absolute -top-10 -left-10">
+            <!-- big circle -->
+            <span class="absolute -top-3 -left-3 w-24 h-24 rounded-full bg-accent-orange/20 z-0"></span>
+            <!-- number -->
+            <span class="relative block w-24 h-24 flex items-center justify-center
+                        text-accent-orange font-semibold text-4xl">
+              2
+            </span>
+          </div>
+
+          <h4 class="font-semibold text-2xl mb-3 mt-6">すぐに表示されない “ぼかし通知”</h4>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            投稿しても内容はすぐに公開されません。<br>
+            まずはヒントだけが表示され、<br>
+            相手は「何だろう？」と自然に考え始めます。
+          </p>
+        </div>
+      </div>
+
+
+      <!-- item -->
+      <div class="flex flex-col-reverse md:flex-row items-center gap-10">
+        <!-- イラスト  -->
+        <div class="w-full md:w-1/2 h-48 bg-white/60 rounded-xl z-10">
+        ここにいらすと
+        </div>
+
+        <!-- text -->
+        <div class="w-full md:w-1/2 relative">
+          <div class="absolute -top-10 -left-10">
+            <!-- big circle -->
+            <span class="absolute -top-3 -left-3 w-24 h-24 rounded-full bg-accent-orange/20 z-0"></span>
+            <!-- number -->
+            <span class="relative block w-24 h-24 flex items-center justify-center
+                        text-accent-orange font-semibold text-4xl">
+              3
+            </span>
+          </div>
+
+          <h4 class="font-semibold text-2xl mb-3 mt-6">答え合わせが、やさしい気づきに</h4>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            決められた時間になるとメモの内容が表示されます。<br>
+          「あ、これのことだったんだ」<br>
+          そんな小さな発見が生まれます。
+          </p>
+        </div>
+      </div>
+
+
+      <!-- item -->
+      <div class="flex flex-col-reverse md:flex-row-reverse items-center gap-10">
+        <!-- イラスト  -->
+        <div class="w-full md:w-1/2 h-48 bg-white/60 rounded-xl z-10">
+        ここにいらすと
+        </div>
+
+        <!-- text -->
+        <div class="w-full md:w-1/2 relative">
+          <div class="absolute -top-10 -left-10">
+            <!-- big circle -->
+            <span class="absolute -top-3 -left-3 w-24 h-24 rounded-full bg-accent-orange/20 z-0"></span>
+            <!-- number -->
+            <span class="relative block w-24 h-24 flex items-center justify-center
+                        text-accent-orange font-semibold text-4xl">
+              4
+            </span>
+          </div>
+
+          <h4 class="font-semibold text-2xl mb-3 mt-6 ">リアルなコミュニケーションを育てる</h4>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            察してほしい、でも押しつけたくない。<br>
+            その間にある、ちょうどいい距離感。<br>
+            自然にお互いを理解するきっかけをつくります。
+          </p>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+
+
+
+  <section class="py-20 mb-10">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl font-semibold text-forest-green">
+        このアプリでできること
+      </h2>
+    </div>
+
+    <!-- 特徴カード -->
+    <div class="max-w-5xl mx-auto grid gap-12 md:grid-cols-2">
+
+      <!-- カード1 -->
+      <div class="card-notebook flex flex-col items-start gap-3">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">✏️</span>
+          <h2 class="text-2xl font-semibold text-forest-green">
+          言葉にしなくても気持ちが伝わる</h2>
+        </div>
+        <p class="text-forest-green">
+          面と向かって言うほどではないこと、
+          言うと気を遣わせてしまいそうなことなど
+          相手を思いやる気持ちを
+          安心して置いておける場所です。
+        </p>
+      </div>
+
+      <!-- カード2 -->
+      <div class="card-notebook flex flex-col items-start gap-3">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">🧠</span>
+          <h2 class="text-2xl font-semibold text-forest-green">
+          「察してほしい」を負担にしない</h2>
+        </div>
+        <p class="text-forest-green">このアプリはあえてすぐ通知をしません。
+          ヒントだけを届けることで、相手が自分の意思で気づく余白を残します。</p>
+      </div>
+
+      <!-- カード3 -->
+      <div class="card-notebook flex flex-col items-start gap-3">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">⏳</span>
+          <h2 class="text-2xl font-semibold text-forest-green">
+          正解を求めないコミュニケーション</h2>
+        </div>
+        <p class="text-forest-green"> 察してもらう必要も、察しなければならない義務もありません。
+        当たった・外れたではなく、考えた時間そのものを大切にします。</p>
+      </div>
+
+      <!-- カード4 -->
+      <div class="card-notebook flex flex-col items-start gap-3">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">💬</span>
+          <h2 class="text-2xl font-semibold text-forest-green">小さな気づきが、関係を育てる</h2>
+        </div>
+        <p class="text-forest-green">アプリの中で完結しない体験。小さな気づきが会話のきっかけになります。
+        日常のコミュニケーションを、無理なく、少しずつやわらかくします。</p>
+      </div>
+
+    </div>
+  </section>
 </div>
+
+
+<footer class="bg-forest-green py-8">
+  <div class="max-w-5xl mx-auto px-4 text-center space-y-4">
+    <!-- privacy policy -->
+    <a href="#" class="text-wood-light text-sm hover:underline">
+      プライバシーポリシー
+    </a>
+
+    <!-- copyright -->
+    <p class="text-wood-light text-xs">
+      © 2026 ふたりのきっかけ帳
+    </p>
+  </div>
+</footer>

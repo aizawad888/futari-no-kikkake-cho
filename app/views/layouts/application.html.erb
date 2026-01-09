@@ -32,17 +32,19 @@
     <% end %>
 
 
-    <!-- フラッシュメッセージ -->
-    <% if flash[:alert] %>
-      <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
-        <%= flash[:alert] %>
-      </div>
-    <% end %>
+    <!-- フラッシュメッセージ（ログイン画面では非表示） -->
+    <% unless controller_name == 'sessions' && action_name == 'new' %>
+      <% if flash[:alert] %>
+        <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
 
-    <% if flash[:notice] %>
-      <div class="bg-green-100 text-green-700 p-3 rounded mb-4">
-        <%= flash[:notice] %>
-      </div>
+      <% if flash[:notice] %>
+        <div class="bg-green-100 text-green-700 p-3 rounded mb-4">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
     <% end %>
 
 
