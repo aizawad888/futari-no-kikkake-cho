@@ -1,63 +1,42 @@
-<header class="sticky top-0 bg-white border-b border-gray-200 z-50">
-  <div class="flex items-center justify-between px-4 py-3 max-w-7xl mx-auto">
-    
+<header class="sticky top-0 bg-sage border-b border-gray-200 z-50">
+  <div class="relative flex items-center px-4 py-4 max-w-7xl mx-auto">
+
     <!-- 左側：戻るボタン -->
     <div class="w-10">
       <% if content_for?(:show_back_button) %>
-        <%= link_to (content_for?(:back_path) ? yield(:back_path) : :back), class: "text-gray-700 hover:text-gray-900 transition" do %>
-          <!-- Heroicons の arrow-left アイコン（Tailwind公式推奨） -->
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+        <%= link_to (content_for?(:back_path) ? yield(:back_path) : :back),
+          class: "text-gray-700 hover:text-gray-900 transition" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+               stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
           </svg>
         <% end %>
       <% end %>
     </div>
 
-
     <!-- 中央：ページタイトル -->
-    <h1 class="text-lg font-bold text-gray-900 flex-1 text-center">
+    <h1 class="absolute left-1/2 -translate-x-1/2 text-lg font-bold text-wood-dark whitespace-nowrap">
       <%= content_for?(:page_title) ? yield(:page_title) : "ふたりのきっかけ帳" %>
     </h1>
 
-    <!-- 右側：ログイン/ログアウト -->
-    <nav class="flex items-center space-x-4 justify-end">
-      <% if user_signed_in? %>
-        <!-- ログイン中：ユーザー名とログアウトボタン -->
-        <div class="hidden md:flex items-center space-x-4">
-          <span class="text-sm text-gray-700"><%= current_user.name || current_user.email %></span>
-          <%= button_to t('header.logout'),
-            destroy_user_session_path,
-            method: :delete,
-            form: { class: "inline" },
-            class: "bg-transparent border-0 p-0 text-sm text-blue-600 hover:text-blue-800 transition cursor-pointer" %>
-        </div>
-
-        <!-- スマホ用：ハンバーガーメニュー（オプション） -->
-        <div class="md:hidden">
-          <button type="button" class="text-gray-700" id="mobile-menu-button">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
-          </button>
-        </div>
-      <% else %>
-        <!-- 未ログイン：ログインリンク -->
-        <%= link_to t('header.login'), new_user_session_path, 
-                    class: "text-sm text-blue-600 hover:text-blue-800 transition" %>
-      <% end %>
-    </nav>
+    <!-- 右側：ログアウトボタン（縦並び） -->
+    <% if user_signed_in? %>
+      <nav class="ml-auto">
+        <%= button_to destroy_user_session_path,
+              method: :delete,
+              form: { class: "inline" },
+              class: "flex flex-col items-center text-sm text-wood-dark hover:text-forest-green transition" do %>
+          <!-- 鍵アイコン -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+               stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mb-1">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 11c1.38 0 2.5-1.12 2.5-2.5S13.38 6 12 6 9.5 7.12 9.5 8.5 10.62 11 12 11z M12 11v4m0 4h.01M4 12v6a2 2 0 002 2h12a2 2 0 002-2v-6a2 2 0 00-2-2h-1V8a5 5 0 10-10 0v2H6a2 2 0 00-2 2z" />
+          </svg>
+          <span class="text-xs">ログアウト</span>
+        <% end %>
+      </nav>
+    <% end %>
 
   </div>
-
-  <!-- スマホ用メニュー中身（オプション） -->
-  <% if user_signed_in? %>
-    <div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 bg-white">
-      <div class="px-4 py-3 space-y-2">
-        <div class="text-sm text-gray-700"><%= current_user.name || current_user.email %></div>
-        <%= link_to t('header.logout'), destroy_user_session_path, 
-                    data: { turbo_method: :delete }, 
-                    class: "block text-sm text-blue-600 hover:text-blue-800 transition" %>
-      </div>
-    </div>
-  <% end %>
 </header>

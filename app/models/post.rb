@@ -1,4 +1,5 @@
 class Post < ApplicationRecord
+  attr_accessor :reveal_offset_seconds
   belongs_to :user
   belongs_to :pair, optional: true
   belongs_to :category
@@ -67,6 +68,11 @@ class Post < ApplicationRecord
       notification_kind: "post_unlocked",
       notifiable: self
     )
+  end
+
+  def reveal_offset_seconds
+    return nil unless reveal_at && created_at
+    (reveal_at - created_at).to_i
   end
 
   private

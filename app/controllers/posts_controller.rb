@@ -7,7 +7,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.posts.build(post_params)
+    @post = current_user.posts.build(post_params.except(:reveal_offset_seconds))
 
     # 現在アクティブなペアを取得
     active_pair = current_user.active_pair
@@ -18,9 +18,11 @@ class PostsController < ApplicationController
 
     @post.pair = active_pair
 
-    # reveal_offset が選択されていれば reveal_at に変換
-    if params[:post][:reveal_offset].present?
-      @post.reveal_at = Time.current + params[:post][:reveal_offset].to_i.seconds
+    # reveal_offset_seconds が選択されていれば reveal_at に変換
+    if post_params[:reveal_offset_seconds].present?
+      @post.reveal_at = Time.current + post_params[:reveal_offset_seconds].to_i.seconds
+      # フォーム再表示用に仮属性にも保持
+      @post.reveal_offset_seconds = post_params[:reveal_offset_seconds]
     end
 
     if @post.save
@@ -71,7 +73,8 @@ class PostsController < ApplicationController
       :title,
       :category_id,
       :sense_level,
-      :reveal_at
+      :reveal_at,
+      :reveal_offset_seconds
     )
   end
 end

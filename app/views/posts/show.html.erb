@@ -1,58 +1,86 @@
 <% content_for(:page_title, @post.title_for_view(current_user)) %>
 <% content_for(:show_back_button, true) %>
 
+<div class="max-w-md mx-auto px-4 py-6 space-y-6">
 
-<!-- タイトル（答え合わせ時間での表示制御済み） -->
-<h2><%= @post.title_for_view(current_user) %></h2>
+  <!-- 上半分カード（タイトル・投稿情報） -->
+  <div class="card-notebook bg-white p-4 space-y-2">
 
+    <!-- タイトル -->
+    <h2 class="text-xl font-semibold text-forest-green font-heading">
+      <%= @post.title_for_view(current_user) %>
+    </h2>
 
+    <!-- 投稿情報 -->
+    <p class="text-sm text-wood-dark">カテゴリ：<%= @post.category.name %></p>
+    <p class="text-sm text-wood-dark">優先度：<%= @post.sense_level_jp %></p>
 
-<p>カテゴリ: <%= @post.category.name %></p>
-<p>優先度: <%= @post.sense_level_jp %></p>
-<p>投稿者: 
-<% if @post.user.icon.present? %>
-  <%= image_tag("user_icons/#{@post.user.icon}", alt: @post.user.name, class: "w-8 h-8 rounded-full inline-block ml-2") %>
-<% end %>
-<%= @post.user.name %>
-</p>
-<p>作成日: <%= @post.created_at.strftime("%Y/%m/%d %H:%M") %></p>
-<p>答え合わせ日時: <%= @post.reveal_at.strftime("%Y/%m/%d %H:%M") %></p>
+    <div class="flex items-center gap-2 text-sm text-wood-dark">
+      <span>投稿者：</span>
+      <% if @post.user.icon.present? %>
+        <%= image_tag "user_icons/#{@post.user.icon}",
+              alt: @post.user.name,
+              class: "w-6 h-6 rounded-full" %>
+      <% end %>
+      <span><%= @post.user.name %></span>
+    </div>
 
+    <p class="text-sm text-wood-dark">作成日：<%= l @post.created_at, format: :short %></p>
+    <p class="text-sm text-wood-dark">答え合わせ：<%= l @post.reveal_at, format: :short %></p>
+  </div>
 
-<% if @post.user == current_user %>
-  <%= link_to edit_post_path(@post),
-      class: "inline-flex items-center text-gray-500 hover:text-blue-500",
-      title: "投稿を編集" do %>
+  <!-- 下半分（ヒント・編集・メモ）はカードなしで今のまま） -->
 
-    <svg xmlns="http://www.w3.org/2000/svg"
-         class="w-5 h-5 mr-1"
-         fill="none"
-         viewBox="0 0 24 24"
-         stroke="currentColor">
-      <path stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M16.862 3.487a2.25 2.25 0 013.182 3.182L7.5 19.213
-               3 21l1.787-4.5L16.862 3.487z" />
-    </svg>
-
-    編集
+  <!-- 相手にどう見えているか（投稿者のみ） -->
+  <% if @post.user == current_user %>
+    <div class="rounded-xl border border-cream bg-light-cream p-4 text-xs space-y-2">
+      <% if @post.reveal_at.present? && Time.current < @post.reveal_at %>
+        <p class="text-accent-orange">
+          👀 相手にはまだ <strong>ヒント</strong> が表示されています
+        </p>
+        <p class="text-wood-light italic">
+          ヒント文：<%= @post.category.hint_text %>
+        </p>
+      <% else %>
+        <p class="text-forest-green">
+          🌱 相手には <strong>答え</strong> が表示されています
+        </p>
+      <% end %>
+    </div>
   <% end %>
 
-  <%= button_to post_path(@post),
-    method: :delete,
-    data: { confirm: "本当に削除しますか？" },
-    class: "inline-flex items-center text-red-500 hover:text-red-600 ml-4" do %>
+  <!-- 編集・削除（投稿者のみ） -->
+  <% if @post.user == current_user %>
+    <div class="flex gap-3">
+      <%= link_to edit_post_path(@post),
+            class: "btn btn-secondary flex items-center gap-1 justify-center" do %>
+        ✏️ 編集
+      <% end %>
 
-  🗑️ 削除
+      <%= button_to post_path(@post),
+            method: :delete,
+            data: { turbo_confirm: "本当に削除しますか？" },
+            class: "btn btn-danger flex items-center gap-1 justify-center" do %>
+        🗑️ 削除
+      <% end %>
+    </div>
   <% end %>
-<% end %>
 
+  <!-- 自分用メモ -->
+  <div class="bg-wood-light/30 rounded-lg p-4 space-y-3">
+    <h3 class="font-semibold text-wood-dark text-sm">自分用メモ</h3>
 
-<h2>自分用メモ</h2>
+    <%= form_with model: @post_memo, local: true do |f| %>
+      <%= f.hidden_field :post_id, value: @post.id %>
 
-<%= form_with model: @post_memo, local: true do |f| %>
-  <%= f.hidden_field :post_id, value: @post.id %>
-  <%= f.text_area :memo, rows: 5 %>
-  <%= f.submit "保存" %>
-<% end %>
+      <%= f.text_area :memo,
+            rows: 4,
+            class: "w-full rounded border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sage" %>
+
+      <div class="text-right">
+        <%= f.submit "保存", class: "btn btn-primary text-sm" %>
+      </div>
+    <% end %>
+  </div>
+
+</div>

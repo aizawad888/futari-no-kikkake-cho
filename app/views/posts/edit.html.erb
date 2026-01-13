@@ -1,5 +1,15 @@
 <% content_for(:page_title, "#{@post.title_for_view(current_user)} 編集中") %>
-
 <% content_for(:show_back_button, true) %>
 
-<%= render "form", post: @post %>
+<div class="max-w-md mx-auto px-4 py-6">
+  <div class="card-notebook bg-white p-6 space-y-6">
+
+    <!-- ページ説明 -->
+    <p class="text-xs text-wood-light">
+      投稿内容を編集できます。保存するまで変更は反映されません。
+    </p>
+
+    <%= render "form", post: @post %>
+
+  </div>
+</div>

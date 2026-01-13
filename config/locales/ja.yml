@@ -1,4 +1,9 @@
 ja:
+  activerecord:
+    attributes:
+      post:
+        title: タイトル
+        reveal_at: 答え合わせのタイミング
   enums:
     user:
       sex:

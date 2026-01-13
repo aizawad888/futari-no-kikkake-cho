@@ -35,3 +35,17 @@ document.addEventListener('turbo:load', () => {
     });
   }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const select = document.getElementById("category-select");
+  const hint = document.getElementById("category-hint");
+
+  if (!select || !hint) return;
+
+  select.addEventListener("change", () => {
+    const selected = select.options[select.selectedIndex];
+    const text = selected.dataset.hint;
+
+    hint.textContent = text || "";
+  });
+});

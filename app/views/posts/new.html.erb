@@ -2,4 +2,15 @@
 <% content_for(:show_back_button, true) %>
 <% content_for(:back_path, main_path) %>
 
-<%= render "form", post: @post %>
+<div class="max-w-md mx-auto px-4 py-6">
+  <div class="card-notebook bg-white p-6 space-y-6">
+
+    <!-- ページ説明 -->
+    <p class="text-xs text-wood-light">
+      相手に気づいてほしいことを、そっとメモしておきましょう
+    </p>
+
+    <%= render "form", post: @post %>
+
+  </div>
+</div>

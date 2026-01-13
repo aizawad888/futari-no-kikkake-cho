@@ -1,48 +1,94 @@
 <% if post.errors.any? %>
-  <ul class="text-red-500">
-    <% post.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-  </ul>
+  <div class="bg-cream text-wood-dark text-sm rounded-lg px-4 py-3">
+    <ul class="list-disc list-inside space-y-1">
+      <% post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>
 
 <%= form_with model: post, data: { turbo: false } do |f| %>
+  <div class="space-y-5">
 
-  <div>
-    <%= f.label :title, "タイトル" %><br>
-    <%= f.text_field :title %>
+    <!-- タイトル -->
+    <div>
+      <%= f.label :title, "タイトル",
+            class: "block text-sm font-heading font-medium mb-1 text-forest-green" %>
+      <%= f.text_field :title,
+            class: "w-full rounded-lg border border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sage" %>
+    </div>
+
+    <!-- カテゴリ -->
+    <div>
+      <%= f.label :category_id, "カテゴリ",
+            class: "block text-sm font-heading font-medium mb-1 text-forest-green" %>
+      <%= f.select :category_id,
+        Category.all.map { |c| [c.name, c.id, { "data-hint": c.hint_text }] },
+        {},
+        { id: "category-select", class: "w-full rounded-lg border border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sage" }
+      %>
+    </div>
+
+    <p class="mt-2 mb-1 text-xs text-wood-light font-body italic">
+      相手に表示されるヒント：
+    </p>
+    <p id="category-hint" class="text-sm text-wood-light italic font-body">
+      カテゴリを選ぶと、相手に表示されるヒントが出ます
+    </p>
+
+    <!-- 優先度 -->
+    <div>
+      <%= f.label :sense_level, "優先度",
+            class: "block text-sm font-heading font-medium mb-1 text-forest-green" %>
+      <%= f.select :sense_level,
+            Post.sense_levels.keys.map { |k| [Post.sense_level_jp_for(k), k] },
+            {},
+            class: "w-full rounded-lg border border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sage bg-white" %>
+    </div>
+
+    <!-- 答え合わせ -->
+    <div>
+      <%= f.label :reveal_at, "答え合わせ", class: "block text-sm font-heading font-medium mb-1 text-forest-green" %>
+
+      <% if f.object.persisted? %>
+        <!-- 編集画面：日時直接入力 -->
+        <%= f.datetime_local_field :reveal_at,
+          value: f.object.reveal_at&.strftime("%Y-%m-%dT%H:%M"),
+          class: "w-full rounded-lg border border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sage bg-white" %>
+        <p class="text-xs text-wood-light mt-1 font-body">
+          相手に見える答え合わせの日時を指定できます
+        </p>
+      <% else %>
+        <!-- 新規作成：○分後 select -->
+        <% options = [
+          ["選択してください", nil],
+          ["すぐ公開", 0],
+          ["10分後", 600],
+          ["30分後", 1800],
+          ["1時間後", 3600],
+          ["2時間後", 7200],
+          ["3時間後", 10800],
+          ["6時間後", 21600],
+          ["12時間後", 43200],
+          ["24時間後", 86400],
+          ["2日後", 172800]
+        ] %>
+        <%= f.select :reveal_offset_seconds,
+              options_for_select(options),
+              {}, 
+              class: "w-full rounded-lg border border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sage bg-white" %>
+        <p class="text-xs text-wood-light mt-1 font-body">
+          相手に見えるタイミングを選べます
+        </p>
+      <% end %>
+    </div>
+
+
+    <!-- 送信 -->
+    <div class="pt-4 flex justify-end">
+      <%= f.submit "保存する", class: "btn btn-primary" %>
+    </div>
+
   </div>
-
-  <div>
-    <%= f.label :category_id, "カテゴリ" %><br>
-    <%= f.collection_select :category_id, Category.all, :id, :name %>
-  </div>
-
-  <div>
-    <%= f.label :sense_level, "優先度" %><br>
-    <%= f.select :sense_level,
-      Post.sense_levels.keys.map { |k| [Post.sense_level_jp_for(k), k] } %>
-  </div>
-
-  <div>
-  <%= f.label :reveal_at, "答え合わせのタイミング" %><br>
-  <% options = [
-    ["選択してください", nil],
-    ["すぐ公開", 0],
-    ["10分後", 10.minutes],
-    ["30分後", 30.minutes],
-    ["1時間後", 1.hour],
-    ["2時間後", 2.hours],
-    ["3時間後", 3.hours],
-    ["6時間後", 6.hours],
-    ["12時間後", 12.hours],
-    ["24時間後", 24.hours],
-    ["2日後", 2.days]
-  ] %>
-  <%= f.select :reveal_offset, options_for_select(options.map { |label, offset| [label, offset] }, selected: nil) %>
-</div>
-
-
-  <%= f.submit %>
-
 <% end %>

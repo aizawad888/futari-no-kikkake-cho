@@ -39,7 +39,11 @@
   }
 
   .btn-secondary {
-    @apply bg-sage text-wood-dark hover:bg-forest-green hover:text-white;
+    @apply bg-forest-green text-white hover:bg-sage hover:text-wood-dark;
+  }
+
+  .btn-danger { 
+    @apply bg-earth-brown text-white hover:bg-red-900;
   }
 }
 
@@ -80,15 +84,12 @@ body {
 
 /* ===== ノートカード ===== */
 .card-notebook {
-  background-color: #ffffff;
   background-image: url("grid.png");
   background-repeat: repeat;
   background-size: 32px 32px;
   border-radius: 1rem;
-  padding: 3rem 2rem;
   text-align: left;
   line-height: 1.8;
-  box-shadow: 0 12px 32px rgba(0,0,0,0.06);
 }
 
 

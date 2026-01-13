@@ -16,7 +16,18 @@
   <div class="w-full max-w-md bg-white rounded-xl shadow p-6 space-y-6">
 
     <% if flash[:alert] %>
-      <div class="bg-red-100 text-red-600 text-sm rounded-lg px-4 py-2" data-turbo-cache="false">
+      <div
+        class="
+          bg-cream
+          text-wood-dark
+          border border-wood-light
+          text-sm
+          rounded-lg
+          px-4
+          py-3
+        "
+        data-turbo-cache="false"
+      >
         <%= flash[:alert] %>
       </div>
     <% end %>

@@ -1,12 +1,9 @@
-<% content_for(:page_title, t('main.index')) %>
+<% content_for(:page_title, "#{current_user.name || 'あなた'}と#{@partner&.name || 'あいて'}の察し手帳") %>
 <% content_for(:show_back_button, false) %>
 <% content_for(:back_path, main_path) %>
 
 
-<div class="max-w-md mx-auto px-4 py-4 space-y-6 bg-cream min-h-screen">
-<div class="bg-cream text-forest-green p-4">
-  Tailwind v4 テスト
-</div>
+<div class="max-w-md mx-auto px-4 py-4 space-y-6 bg-light-cream min-h-screen mb-15">
 
 
   <% if @partner.nil? %>
@@ -27,39 +24,34 @@
       placeholder="投稿の検索（工事中）"
       class="flex-1 rounded-lg px-3 py-2 text-sm bg-white shadow-sm"
     />
-    <button class="px-4 py-2 text-sm bg-sage text-wood-dark rounded-lg">
+    <button class="btn btn-secondary">
       検索
     </button>
   </div>
 
+  <!-- 並び替えセレクト -->
+  <div class="flex items-center space-x-2 mt-2">
+    <%= form_with url: main_path, method: :get, local: true do |f| %>
+      <%= f.label :sort, "並び替え:", class: "text-sm font-medium text-wood-dark" %>
+      <%= f.select :sort,
+            [["優先度順", "priority"], ["投稿が新しい順", "new"], ["答え合わせが近い順", "reveal"]],
+            { selected: params[:sort] },
+            class: "rounded-lg border px-2 py-1 text-sm"
+      %>
+
+      <%= f.submit "適用", class: "btn btn-secondary" %>
+    <% end %>
+  </div>
+
+
   <!-- 投稿一覧 -->
   <div id="posts-list" class="space-y-6">
     <% if @posts.any? %>
-
-      <h2 class="text-xs font-semibold text-wood-dark">
-        最近の大事な投稿
-      </h2>
-
-      <% if @high_posts.any? %>
-        <% @high_posts.each do |post| %>
-          <%= render "posts/post_card",
-              post: post,
-              last_viewed_at: @last_viewed_at %>
-        <% end %>
-      <% else %>
-        <p class="text-xs text-wood-light px-2">なし</p>
-      <% end %>
-
-      <h2 class="text-xs font-semibold text-wood-dark mt-6">
-        通常投稿
-      </h2>
-
-      <% @other_posts.each do |post| %>
+      <% @posts.each do |post| %>
         <%= render "posts/post_card",
             post: post,
             last_viewed_at: @last_viewed_at %>
       <% end %>
-
     <% else %>
       <div class="bg-white rounded-xl p-6 text-wood-light text-sm shadow-sm">
         投稿がまだありません
@@ -71,7 +63,7 @@
 
 <!-- 右下の追加ボタン -->
 <%= link_to new_post_path,
-  class: "fixed bottom-20 right-6 w-14 h-14 bg-pink-300 text-white rounded-full shadow-lg flex items-center justify-center text-3xl" do %>
+  class: "fixed bottom-20 right-6 w-14 h-14 bg-accent-orange text-white rounded-full shadow-lg flex items-center justify-center text-3xl transform transition-transform hover:scale-110 hover:shadow-2xl" do %>
   +
 <% end %>
 

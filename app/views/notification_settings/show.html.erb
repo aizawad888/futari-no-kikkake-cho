@@ -2,15 +2,18 @@
 <% content_for(:show_back_button, true) %>
 <% content_for(:back_path, main_path) %>
 
-<div class="container mx-auto px-4 py-8">
-  ※アプリ内通知はOFFにできません
+<div class="bg-app min-h-screen px-4 py-6 space-y-6">
+
+  <p class="text-wood-dark text-sm mb-4">
+    ※アプリ内通知はOFFにできません
+  </p>
 
   <%= form_with url: notification_settings_path, method: :patch, local: true do %>
-    <div class="space-y-6">
+    <div class="space-y-4">
 
       <% @notification_settings.each do |setting| %>
-        <div class="bg-white p-4 rounded-lg shadow space-y-3">
-          <h3 class="font-bold text-lg">
+        <div class="bg-white rounded-xl shadow-md p-5 space-y-3">
+          <h3 class="font-heading text-forest-green font-semibold text-sm">
             <%= t("notification_kinds.#{setting.notification_kind}") %>
           </h3>
 
@@ -31,7 +34,7 @@
               [["通知しない", ""]] + options,
               setting.push_enabled ? setting.frequency : ""
             ),
-            class: "form-select"
+            class: "w-full rounded-lg border border-wood-dark px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sage"
           ) %>
 
         </div>
@@ -40,8 +43,8 @@
     </div>
 
     <div class="mt-6">
-      <%= submit_tag "保存する",
-                     class: "px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600" %>
+      <%= submit_tag "保存する", class: "btn btn-primary w-full text-center" %>
     </div>
   <% end %>
+
 </div>

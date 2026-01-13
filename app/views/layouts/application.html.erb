@@ -25,7 +25,7 @@
 
   </head>
 
-  <body>
+  <body class="bg-light-cream">
     <% unless (controller_name == 'sessions' && action_name == 'new') ||
           (controller_name == 'home' && action_name == 'index') %>
       <%= render "shared/header" %>
@@ -34,18 +34,24 @@
 
     <!-- フラッシュメッセージ（ログイン画面では非表示） -->
     <% unless controller_name == 'sessions' && action_name == 'new' %>
-      <% if flash[:alert] %>
-        <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
-          <%= flash[:alert] %>
-        </div>
-      <% end %>
-
-      <% if flash[:notice] %>
-        <div class="bg-green-100 text-green-700 p-3 rounded mb-4">
-          <%= flash[:notice] %>
+      <% flash.each do |type, message| %>
+        <div class="
+          mx-auto max-w-md mt-4 px-4 py-3 rounded-lg text-sm shadow
+          <%= case type.to_sym
+              when :notice
+                'bg-sage/30 text-forest-green border border-sage'
+              when :alert
+                'bg-cream text-wood-dark border border-wood-light'
+              else
+                'bg-accent-orange/20 text-wood-dark border border-accent-orange'
+              end
+          %>
+        ">
+          <%= message %>
         </div>
       <% end %>
     <% end %>
+
 
 
     <main>

@@ -1,43 +1,60 @@
 <% content_for(:page_title, t('users.show')) %>
-<% content_for(:show_back_button, false) %>
-<% content_for(:back_path, main_path) %>
 
+<div class="max-w-md mx-auto px-4 py-6 space-y-6">
 
-<h2>マイページ</h2>
+  <!-- ユーザー情報カード -->
+  <div class="card-notebook bg-white p-5 flex flex-col items-center space-y-3">
+    <% if current_user.icon.present? %>
+      <%= image_tag "user_icons/#{current_user.icon}",
+            class: "w-20 h-20 rounded-full border-2 border-wood-dark" %>
+    <% end %>
 
-<p>名前：<%= current_user.name %></p>
-<p>メール(変更不可)：<%= current_user.email %></p>
-<p>性別：<%= t("enums.user.sex.#{current_user.sex}") %></p>
+    <p class="font-heading text-forest-green text-lg font-semibold">
+      <%= current_user.name %>
+    </p>
 
-<% if current_user.icon.present? %>
-  <p>アイコン：</p>
-  <%= image_tag "user_icons/#{current_user.icon}", size: "60x60", class: "rounded " %>
-<% end %>
+    <p class="text-wood-dark text-sm">メール：<%= current_user.email %></p>
+    <p class="text-wood-dark text-sm">性別：<%= t("enums.user.sex.#{current_user.sex}") %></p>
 
-<%= link_to "編集する", edit_user_path(current_user), class: "px-3 py-1 bg-green-400 text-white rounded" %>
+    <%= link_to "編集する", edit_user_path(current_user),
+          class: "btn btn-secondary mt-2 w-full text-center" %>
+  </div>
 
-<div class="mt-6">
-  <%= link_to "プッシュ通知設定を変更する",
-              notification_settings_path,
-              class: "inline-block px-6 py-3 rounded-lg bg-blue-500 text-white hover:bg-blue-600" %>
+  <!-- 通知設定カード -->
+  <div class="card-notebook bg-white p-5">
+    <%= link_to "プッシュ通知設定を変更する(工事中)",
+          notification_settings_path,
+          class: "btn btn-primary w-full text-center" %>
+  </div>
+
+  <!-- ペア情報カード -->
+  <div class="card-notebook bg-white p-5">
+    <h3 class="font-heading text-forest-green font-semibold mb-3 text-sm">ペア情報</h3>
+
+    <% if current_user.active_pair %>
+      <p class="text-wood-dark mb-2">
+        パートナーの名前：<%= current_user.active_pair.partner(current_user).name %>
+      </p>
+
+      <%= button_to "ペア解消", pair_path(current_user.active_pair),
+            method: :delete,
+            data: { turbo_confirm: "本当に解消しますか?" },
+            class: "btn btn-danger w-full text-center" %>
+
+    <% else %>
+      <p class="text-wood-dark mb-2">
+        あなたのペアコード：<%= current_user.my_code %>
+      </p>
+
+      <div class="flex gap-2">
+        <%= link_to "新しいペアを作成する", new_pair_path,
+              class: "btn btn-primary flex-1 text-center" %>
+
+        <%= button_to "ペアコードを再発行", regenerate_code_user_path(current_user),
+              method: :post,
+              class: "btn btn-secondary flex-1 text-center" %>
+      </div>
+    <% end %>
+  </div>
+
 </div>
-
-
-
-<hr class="my-4">
-
-<h3>ペア情報</h3>
-
-<% if current_user.active_pair %>
-  <!-- ペアがある場合 -->
-  <p>パートナーの名前：<%= current_user.active_pair.partner(current_user).name %></p>
-  <%= button_to "ペア解消", pair_path(current_user.active_pair), method: :delete, data: { turbo_confirm: "本当に解消しますか?" }, class: "px-2 py-1 bg-gray-300 rounded" %>
-<% else %>
-  <!-- ペアがない場合 -->
-  <p>あなたのペアコード：<%= current_user.my_code %></p>
-  <%= link_to "新しいペアを作成する", new_pair_path, class: "px-2 py-1 bg-pink-300 text-white rounded" %>
-  <%= button_to "ペアコードを再発行", regenerate_code_user_path(current_user), method: :post %>
-<% end %>
-
-
-

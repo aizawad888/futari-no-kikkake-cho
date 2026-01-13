@@ -7,7 +7,6 @@
     </p>
     <h1 class="text-5xl font-fui text-forest-green mb-10">ふたりの察し手帳</h1>
     <div class="flex justify-center gap-4">
-      <%= link_to "はじめる", new_user_registration_path, class: "btn btn-primary" %>
       <%= link_to "ログイン", new_user_session_path, class: "btn btn-secondary" %>
     </div>
   </div>
@@ -153,7 +152,7 @@
     <div class="max-w-5xl mx-auto grid gap-12 md:grid-cols-2">
 
       <!-- カード1 -->
-      <div class="card-notebook flex flex-col items-start gap-3">
+      <div class="card-notebook bg-white flex flex-col items-start gap-3 p-10">
         <div class="flex items-center gap-2">
           <span class="text-2xl">✏️</span>
           <h2 class="text-2xl font-semibold text-forest-green">
@@ -168,7 +167,7 @@
       </div>
 
       <!-- カード2 -->
-      <div class="card-notebook flex flex-col items-start gap-3">
+      <div class="card-notebook bg-white flex flex-col items-start gap-3 p-10">
         <div class="flex items-center gap-2">
           <span class="text-2xl">🧠</span>
           <h2 class="text-2xl font-semibold text-forest-green">
@@ -179,7 +178,7 @@
       </div>
 
       <!-- カード3 -->
-      <div class="card-notebook flex flex-col items-start gap-3">
+      <div class="card-notebook bg-white flex flex-col items-start gap-3 p-10">
         <div class="flex items-center gap-2">
           <span class="text-2xl">⏳</span>
           <h2 class="text-2xl font-semibold text-forest-green">
@@ -190,7 +189,7 @@
       </div>
 
       <!-- カード4 -->
-      <div class="card-notebook flex flex-col items-start gap-3">
+      <div class="card-notebook bg-white flex flex-col items-start gap-3 p-10">
         <div class="flex items-center gap-2">
           <span class="text-2xl">💬</span>
           <h2 class="text-2xl font-semibold text-forest-green">小さな気づきが、関係を育てる</h2>
@@ -201,6 +200,13 @@
 
     </div>
   </section>
+
+  
+  <div class="flex flex-col items-center gap-2">
+    <p>早速はじめてみましょう！</p>
+    <%= link_to "ログイン", new_user_session_path, class: "btn btn-secondary" %>
+  </div>
+
 </div>
 
 

@@ -94,7 +94,7 @@ class DemoUserService
       new_post = Post.create!(
         user: user2,
         pair: pair,
-        category_id: 8,
+        category_id: 7,
         title: "デモモードを使ってくれてありがとう!",
         reveal_at: 1.minute.from_now,
         sense_level: 2,
