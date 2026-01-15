@@ -2,19 +2,39 @@
 <% content_for(:show_back_button, true) %>
 <% content_for(:back_path, main_path) %>
 
+<div class="max-w-md mx-auto mt-10 space-y-6">
 
-<h2>新しいペアを作成</h2>
+  <!-- 説明文 -->
+  <p class="text-sm text-gray-600 text-center">
+    相手から教えてもらったペアコードを入力してください
+  </p>
 
-<%= form_with model: @pair, local: true do |f| %>
-  <div>
-    <%= f.label :partner_code, "相手のペアコード" %>
-    <%= f.text_field :partner_code, placeholder: "8桁のコードを入力" %>
+  <!-- フォーム -->
+  <%= form_with model: @pair, local: true, class: "space-y-4" do |f| %>
+    <div class="space-y-1">
+      <%= f.label :partner_code,
+            "相手のペアコード",
+            class: "text-sm text-wood-dark" %>
+
+      <%= f.text_field :partner_code,
+            placeholder: "8桁のコードを入力",
+            class: "w-full border rounded-lg border-wood-dark text-xl
+                    focus:border-forest-green focus:ring-forest-green" %>
+    </div>
+
+    <div class="pt-2">
+      <%= f.submit "ペアを作成する",
+            class: "w-full py-2 rounded-lg
+                   bg-forest-green text-white text-sm
+                   hover:bg-forest-green/90 transition" %>
+    </div>
+  <% end %>
+
+  <!-- 戻るリンク -->
+  <div class="text-center">
+    <%= link_to "マイページに戻る",
+          user_path(current_user),
+          class: "text-sm text-gray-500 hover:text-gray-700 transition" %>
   </div>
 
-  <div>
-    <%= f.submit "ペア作成", class: "px-4 py-2 bg-pink-300 text-white rounded-lg" %>
-  </div>
-<% end %>
-
-<%= link_to "マイページに戻る", user_path(current_user) %>
-
+</div>
