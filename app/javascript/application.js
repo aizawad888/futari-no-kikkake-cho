@@ -36,7 +36,7 @@ document.addEventListener('turbo:load', () => {
   }
 });
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("turbo:load", () => {
   const select = document.getElementById("category-select");
   const hint = document.getElementById("category-hint");
 
@@ -46,6 +46,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const selected = select.options[select.selectedIndex];
     const text = selected.dataset.hint;
 
-    hint.textContent = text || "";
+    hint.textContent =
+      text || "カテゴリを選ぶと、相手に表示されるヒントが出ます";
   });
 });
+

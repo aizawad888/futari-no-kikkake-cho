@@ -3,7 +3,7 @@
 <% content_for(:back_path, main_path) %>
 
 
-<div class="max-w-md mx-auto px-4 py-4 space-y-6 bg-light-cream min-h-screen mb-15">
+<div class="relative z-10 max-w-md mx-auto px-4 py-4 space-y-6 min-h-screen mb-15">
 
 
   <% if @partner.nil? %>
@@ -12,8 +12,7 @@
     </p>
   <% else %>
     <div class="text-xs text-wood-dark">
-      あなた: <%= current_user.name || "名無し" %> /
-      相手: <%= @partner.name || "名無し" %>
+      
     </div>
   <% end %>
 
@@ -90,6 +89,11 @@
     </div>
   </div>
 <% end %>
+
+<%= image_tag "455.png",
+  class: "fixed bottom-0 right-0 w-80 opacity-30 pointer-events-none z-0",
+  alt: "" %>
+
 
 
 
