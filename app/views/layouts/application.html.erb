@@ -26,7 +26,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
 
+    <!-- favicon -->
     <%= favicon_link_tag 'favicon.png' %>
+
+    <!-- OGP -->
+    <meta property="og:title" content="<%= content_for?(:page_title) ? yield(:page_title) : 'ふたりの察し手帳' %>">
+    <meta property="og:description" content="<%= content_for?(:page_description) ? yield(:page_description) : '自然にお互いを理解するためのクローズドな気づきアプリ' %>">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<%= request.original_url %>">
+    <meta property="og:image" content="<%= image_url('ogp.png') %>">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
 
 
   </head>
