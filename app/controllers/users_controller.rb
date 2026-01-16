@@ -24,6 +24,17 @@ class UsersController < ApplicationController
     redirect_to user_path(current_user), notice: "ペアコードを再発行しました"
   end
 
+  # ユーザー削除(ユーザー削除前にペア削除処理)
+  def destroy
+    ActiveRecord::Base.transaction do
+      current_user.unpair if current_user.active_pair
+      current_user.destroy!
+    end
+
+    reset_session
+    redirect_to root_path, notice: "退会が完了しました"
+  end
+
   private
 
   def user_params

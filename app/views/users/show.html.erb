@@ -57,4 +57,15 @@
     <% end %>
   </div>
 
+ 
+  <%= button_to "退会する",
+      user_registration_path,
+      method: :delete,
+      data: { turbo_confirm: "本当に退会しますか？" },
+      class: "btn btn-danger mt-8" %>
+
+  <p class="text-xs text-gray-500 mb-15">
+      退会すると、投稿・メモ・通知設定などのデータはすべて削除され、元に戻せません。
+  </p>
+
 </div>

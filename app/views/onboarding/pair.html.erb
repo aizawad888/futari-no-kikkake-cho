@@ -1,35 +1,49 @@
-<div class="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-  <h2 class="text-2xl font-bold mb-4">ペアを作成しましょう</h2>
-  
-  <p class="mb-6 text-gray-600">
-    パートナーのペアコードを入力してペアを作成してください。
+<div class="max-w-md mx-auto mt-10 p-6 bg-white rounded-xl shadow-sm">
+  <h2 class="text-2xl font-bold mb-4 text-wood-dark">
+    ペアを作成しましょう
+  </h2>
+
+  <p class="mb-6 text-gray-600 text-sm">
+    パートナーのペアコードを入力して、ペアを作成してください。
   </p>
 
   <%= form_with url: onboarding_pair_path, method: :post, local: true do |f| %>
     <div class="mb-4">
-      <%= label_tag :partner_code, "パートナーのペアコード", class: "block text-sm font-medium text-gray-700 mb-2" %>
-      <%= text_field_tag :partner_code, "", class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500", placeholder: "例: ABC123" %>
+      <%= label_tag :partner_code,
+            "パートナーのペアコード",
+            class: "block text-sm font-medium text-gray-700 mb-2" %>
+
+      <%= text_field_tag :partner_code, "",
+            class: "w-full px-3 py-2 border border-wood-light rounded-lg
+                    focus:outline-none focus:ring-2 focus:ring-sage",
+            placeholder: "例: ABC123" %>
     </div>
 
     <div class="mb-4">
-      <%= f.submit "ペアを作成", class: "w-full px-4 py-2 bg-pink-500 text-white rounded-md hover:bg-pink-600 transition" %>
+      <%= f.submit "ペアを作成",
+            class: "w-full py-3 bg-accent-orange text-white rounded-lg
+                    font-semibold hover:bg-wood-dark transition" %>
     </div>
   <% end %>
 
-  <div class="text-center">
-  <%= link_to "スキップする",
-      onboarding_skip_path,
-      class: "text-gray-500 hover:text-gray-700 underline" %>
-</div>
-
-
+  <div class="text-center text-sm">
+    <%= link_to "スキップする",
+          onboarding_skip_path,
+          class: "text-gray-500 hover:text-wood-dark underline" %>
+  </div>
 
   <hr class="my-6">
 
-  <div class="bg-gray-50 p-4 rounded-md">
-    <h3 class="text-lg font-semibold mb-2">あなたのペアコード</h3>
-    <p class="text-2xl font-mono text-pink-600"><%= current_user.my_code %></p>
-    <p class="text-sm text-gray-600 mt-2">
+  <div class="bg-sage/20 p-4 rounded-lg">
+    <h3 class="text-sm font-semibold text-wood-dark mb-1">
+      あなたのペアコード
+    </h3>
+
+    <p class="text-2xl font-mono text-accent-orange tracking-wider">
+      <%= current_user.my_code %>
+    </p>
+
+    <p class="text-xs text-gray-600 mt-2">
       このコードをパートナーに共有してください
     </p>
   </div>

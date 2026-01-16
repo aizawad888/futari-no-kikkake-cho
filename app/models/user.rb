@@ -14,8 +14,15 @@ class User < ApplicationRecord
   enum sex: { man: 0, woman: 1, other: 2 }
 
   # ペア
-  has_many :pairs_as_user1, class_name: "Pair", foreign_key: :user_id1, dependent: :nullify
-  has_many :pairs_as_user2, class_name: "Pair", foreign_key: :user_id2, dependent: :nullify
+  has_many :pairs_as_user1,
+          class_name: "Pair",
+          foreign_key: :user_id1,
+          dependent: :destroy
+
+  has_many :pairs_as_user2,
+          class_name: "Pair",
+          foreign_key: :user_id2,
+         dependent: :destroy
 
   # 自分の有効なペアを返す
   def active_pair
