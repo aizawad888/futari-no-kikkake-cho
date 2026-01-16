@@ -7,10 +7,10 @@
   end %>
 
 <%= link_to post_path(post), class: "block" do %>
-  <div class="card-notebook <%= priority_class %> flex rounded-xl shadow-md/20 p-6 mb-6 transform rotate-0 hover:rotate-2 transition-transform">
+  <div class="card-notebook <%= priority_class %> flex rounded-xl shadow-md/20 p-4 mb-6 transform rotate-0 hover:rotate-2 transition-transform">
 
     <!-- 左側 カテゴリアイコンと優先度 -->
-    <div class="flex-shrink-0 mr-4 flex flex-col items-center justify-center w-16 space-y-2">
+    <div class="flex-shrink-0 mr-4 flex flex-col items-center justify-center w-12 space-y-2 ">
       <% if post.category&.icon.present? %>
         <%= image_tag(post.category.icon, alt: post.category.name, class: "w-8 h-8") %>
       <% end %>
@@ -28,19 +28,25 @@
         </div>
       <% end %>
 
-      <p class="text-xs text-forest-green font-heading mb-1">
+      <p class="text-sm text-forest-green font-heading mb-1">
         カテゴリ: <%= post.category.name %>
       </p>
 
-      <h3 class="text-base font-semibold mb-2 text-forest-green font-heading
-                 <%= 'text-accent-orange' if post.user != current_user && Time.current < post.reveal_at %>">
+      <% locked = post.reveal_at.present? && Time.current < post.reveal_at %>
+
+      <h3 class="text-base mb-2 font-heading
+                <%= locked && post.user != current_user ?
+                    'text-accent-orange font-semibold text-lg' :
+                    'text-forest-green font-semibold text-lg' %>">
         <%= post.title_for_view(current_user) %>
+
         <% if last_viewed_at.nil? || post.created_at > last_viewed_at %>
           <span class="ml-2 text-xs bg-accent-orange text-white px-2 py-0.5 rounded-full font-heading">
             New
           </span>
         <% end %>
       </h3>
+
 
       <% if post.reveal_at.present? && Time.current < post.reveal_at %>
         <div class="mt-auto text-xs font-heading">
