@@ -44,9 +44,11 @@
 
   <body class="bg-light-cream">
     <% unless (controller_name == 'sessions' && action_name == 'new') ||
-          (controller_name == 'home' && action_name == 'index') %>
-      <%= render "shared/header" %>
-    <% end %>
+      (controller_name == 'home' && action_name == 'index') ||
+      (controller_name == 'passwords' && action_name == 'new') %>
+    <%= render "shared/header" %>
+  <% end %>
+
 
 
     <!-- フラッシュメッセージ（ログイン画面では非表示） -->

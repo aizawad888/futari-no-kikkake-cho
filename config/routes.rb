@@ -43,4 +43,8 @@ Rails.application.routes.draw do
   end
 
   resource :notification_settings, only: [ :show, :update ]
+
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 end
