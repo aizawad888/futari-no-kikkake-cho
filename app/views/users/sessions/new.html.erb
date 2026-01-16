@@ -1,7 +1,3 @@
-<% content_for(:page_title, t('users.sessions.new.sign_in')) %>
-<% content_for(:show_back_button, true) %>
-
-
 <div class="text-center space-y-2 mt-10">
   <h1 class="font-fui text-3xl text-wood-dark">
     <%= link_to "ふたりの察し手帳", root_path %>
@@ -16,19 +12,14 @@
   <div class="w-full max-w-md bg-white rounded-xl shadow p-6 space-y-6">
 
     <% if flash[:alert] %>
-      <div
-        class="
-          bg-cream
-          text-wood-dark
-          border border-wood-light
-          text-sm
-          rounded-lg
-          px-4
-          py-3
-        "
-        data-turbo-cache="false"
-      >
+      <div class="bg-cream text-wood-dark border border-wood-light text-sm rounded-lg px-4 py-3" data-turbo-cache="false">
         <%= flash[:alert] %>
+      </div>
+    <% end %>
+
+    <% if flash[:notice] %>
+      <div class="bg-cream text-wood-dark border border-wood-light text-sm rounded-lg px-4 py-3" data-turbo-cache="false">
+        <%= flash[:notice] %>
       </div>
     <% end %>
 

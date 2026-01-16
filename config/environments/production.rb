@@ -102,4 +102,18 @@ Rails.application.configure do
   # ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: "smtp.gmail.com",
+    port: 587,
+    user_name: ENV["GMAIL_USERNAME"],
+    password: ENV["GMAIL_APP_PASSWORD"],
+    authentication: "plain",
+    enable_starttls_auto: true
+  }
+
+  config.action_mailer.default_url_options = { host: "futari-no-kikkake-cho.onrender.com" }
+  config.mailer_sender = "ふたりの察し手帳 <futari.no.sasshi.techo@gmail.com>"
 end
