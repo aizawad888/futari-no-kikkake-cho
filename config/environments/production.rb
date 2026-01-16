@@ -106,14 +106,20 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com",
+    address: "smtp.resend.com",
     port: 587,
-    user_name: ENV["GMAIL_USERNAME"],
-    password: ENV["GMAIL_APP_PASSWORD"],
-    authentication: "plain",
+    user_name: "resend",
+    password: ENV["RESEND_API_KEY"],
+    authentication: :plain,
     enable_starttls_auto: true
   }
 
-  config.action_mailer.default_url_options = { host: "futari-no-kikkake-cho.onrender.com" }
-  config.mailer_sender = "ふたりの察し手帳 <futari.no.sasshi.techo@gmail.com>"
+  config.action_mailer.default_url_options = { 
+    host: "futari-no-kikkake-cho.onrender.com",
+    protocol: "https"
+  }
+
+  # Devise 送信元
+  config.mailer_sender = 'ふたりの察し手帳 <no-reply@futari-no-kikkake-cho.ondigitalocean.app>'
+
 end
