@@ -119,7 +119,4 @@ Rails.application.configure do
     protocol: "https"
   }
 
-  # Devise 送信元
-  config.mailer_sender = 'ふたりの察し手帳 <no-reply@futari-no-kikkake-cho.ondigitalocean.app>'
-
 end
