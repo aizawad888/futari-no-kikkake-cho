@@ -1,6 +1,6 @@
 <% content_for(:page_title, t('users.show')) %>
 
-<div class="max-w-md mx-auto px-4 py-6 space-y-6">
+<div class="max-w-md mx-auto px-4 py-6 space-y-6 mb-24">
 
   <!-- ユーザー情報カード -->
   <div class="card-notebook bg-white p-5 flex flex-col items-center space-y-3">
@@ -33,7 +33,7 @@
 
   <!-- ペア情報カード -->
   <div class="card-notebook bg-white p-5">
-    <h3 class="font-heading text-forest-green font-semibold mb-3 text-sm">ペア情報</h3>
+    <h3 class="text-base font-heading text-forest-green mb-2">ペア情報</h3>
 
     <% if current_user.active_pair %>
       <p class="text-wood-dark mb-2">
@@ -68,7 +68,7 @@
       data: { turbo_confirm: "本当に退会しますか？" },
       class: "btn btn-danger mt-8" %>
 
-  <p class="text-xs text-gray-500 mb-15">
+  <p class="text-xs text-gray-500">
       退会すると、投稿・メモ・通知設定などのデータはすべて削除され、元に戻せません。
   </p>
 

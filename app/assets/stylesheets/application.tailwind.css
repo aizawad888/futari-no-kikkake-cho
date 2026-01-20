@@ -45,6 +45,25 @@
   .btn-danger { 
     @apply bg-earth-brown text-white hover:bg-red-900;
   }
+
+  /* 説明用 */
+.text-description {
+    color: var(--color-wood-light);
+    font-size: 0.875rem; /* text-sm */
+    line-height: 1.7;
+    font-weight: 500;
+  }
+  
+  /* ===== ノートカード ===== */
+  .card-notebook {
+    background-image: url("grid.png");
+    background-repeat: repeat;
+    background-size: 32px 32px;
+    border-radius: 1rem;
+    text-align: left;
+    line-height: 1.8;
+  }
+
 }
 
 /* ===== utilities ===== */
@@ -57,16 +76,12 @@
 /* 見出し用 */
 .font-heading {
   font-family: var(--font-heading);
+  font-weight: 700;
+  
 }
 
 h1,h2,h3,h4 {
-  font-weight: 600;
-  font-family: var(--font-heading);
-}
-
-/* 本文用 */
-.font-body {
-  font-family: var(--font-body);
+  @apply font-heading;
 }
 
 
@@ -74,23 +89,14 @@ h1,h2,h3,h4 {
 body {
   font-family: var(--font-body);
   color: var(--color-wood-dark);
+  font-weight: 500;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ===== 背景 ===== */
 .bg-app {
   background-color: var(--color-light-cream);
 }
-
-
-/* ===== ノートカード ===== */
-.card-notebook {
-  background-image: url("grid.png");
-  background-repeat: repeat;
-  background-size: 32px 32px;
-  border-radius: 1rem;
-  text-align: left;
-  line-height: 1.8;
-}
-
 
 

@@ -1,30 +1,44 @@
-<h1>伝言板</h1>
+<% content_for(:page_title, t('board.index')) %>
+<% content_for(:show_back_button, false) %>
+<% content_for(:back_path, main_path) %>
 
-<!-- 上：共有メモ -->
-<section class="mb-8">
-  <h2>共有メモ</h2>
-  <div class="border p-4 rounded">
-    <%= simple_format(@board.content.presence || "まだメモはありません") %>
+
+<div class="relative z-10 max-w-md mx-auto px-4 py-2 space-y-6 min-h-screen mb-15">
+
+  <!-- 伝言板 -->
+  <div class="bg-white rounded-xl p-4 shadow-sm space-y-3">
+    <h2 class="text-base font-heading">2人の共有メモ</h2>
+
+    <%= form_with model: @board, url: board_path, method: :patch do |f| %>
+      <%= f.text_area :content,
+        rows: 5,
+        placeholder: "ここに伝言を書いてね",
+        class: "w-full rounded-lg border px-3 py-2 text-sm bg-white" %>
+
+      <div class="text-right mt-2">
+        <%= f.submit "保存", class: "btn btn-primary" %>
+      </div>
+    <% end %>
   </div>
-</section>
 
-<hr>
 
-<!-- 下：記念日 -->
-<section class="mt-8">
-  <h2>記念日</h2>
+  <!-- 記念日 -->
+  <div class="bg-white rounded-xl p-4 shadow-sm space-y-3">
+    <h2 class="text-base font-heading">記念日</h2>
 
-  <% if @anniversaries.any? %>
-    <ul>
-      <% @anniversaries.each do |anniversary| %>
-        <li>
-          <strong><%= anniversary.title %></strong>
-          ：<%= anniversary.date %>
-          （<%= anniversary.repeat_type %>）
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>まだ記念日は登録されていません</p>
-  <% end %>
-</section>
+    <% if @anniversaries.any? %>
+      <ul class="space-y-2 text-sm">
+        <% @anniversaries.each do |anniversary| %>
+          <li class="flex justify-between">
+            <span><%= anniversary.title %></span>
+            <span class="text-wood-light"><%= anniversary.date.strftime("%m/%d") %></span>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="text-description">まだ記念日がありません</p>
+    <% end %>
+  </div>
+
+
+</div>

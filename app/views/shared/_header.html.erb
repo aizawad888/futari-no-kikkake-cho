@@ -1,8 +1,8 @@
 <header class="sticky top-0 bg-sage border-b border-gray-200 z-50">
-  <div class="relative flex items-center px-4 py-4 max-w-7xl mx-auto">
+  <div class="flex items-center px-4 py-4 max-w-7xl mx-auto">
 
     <!-- 左側：戻るボタン -->
-    <div class="w-10">
+    <div class="w-10 shrink-0">
       <% if content_for?(:show_back_button) %>
         <%= link_to (content_for?(:back_path) ? yield(:back_path) : :back),
           class: "text-gray-700 hover:text-gray-900 transition" do %>
@@ -16,24 +16,25 @@
     </div>
 
     <!-- 中央：ページタイトル -->
-    <h1 class="absolute left-1/2 -translate-x-1/2 text-lg font-bold text-wood-dark whitespace-nowrap">
-      <%= content_for?(:page_title) ? yield(:page_title) : "ふたりのきっかけ帳" %>
-    </h1>
+    <div class="flex-1 px-2 text-center max-w-[70%] mx-auto">
+      <h1 class="text-m font-bold text-wood-dark leading-snug break-words">
+        <%= content_for?(:page_title) ? yield(:page_title) : "ふたりのきっかけ帳" %>
+      </h1>
+    </div>
 
-    <!-- 右側：ログアウトボタン（縦並び） -->
+    <!-- 右側：ログアウト -->
     <% if user_signed_in? %>
-      <nav class="ml-auto">
+      <nav class="shrink-0">
         <%= button_to destroy_user_session_path,
               method: :delete,
               form: { class: "inline" },
-              class: "flex flex-col items-center text-sm text-wood-dark hover:text-forest-green transition" do %>
-          <!-- 鍵アイコン -->
+              class: "flex flex-col items-center text-xs text-wood-dark hover:text-forest-green transition" do %>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mb-1">
             <path stroke-linecap="round" stroke-linejoin="round"
                   d="M12 11c1.38 0 2.5-1.12 2.5-2.5S13.38 6 12 6 9.5 7.12 9.5 8.5 10.62 11 12 11z M12 11v4m0 4h.01M4 12v6a2 2 0 002 2h12a2 2 0 002-2v-6a2 2 0 00-2-2h-1V8a5 5 0 10-10 0v2H6a2 2 0 00-2 2z" />
           </svg>
-          <span class="text-xs">ログアウト</span>
+          <span>ログアウト</span>
         <% end %>
       </nav>
     <% end %>

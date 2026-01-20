@@ -14,7 +14,7 @@
       <% if post.category&.icon.present? %>
         <%= image_tag(post.category.icon, alt: post.category.name, class: "w-8 h-8") %>
       <% end %>
-      <div class="text-center text-xs text-forest-green font-heading">
+      <div class="text-center text-xs text-forest-green">
         優先度: <%= post.sense_level_jp %>
       </div>
     </div>
@@ -23,12 +23,12 @@
     <div class="flex flex-col flex-grow space-y-1">
 
       <% if post.just_unlocked?(last_viewed_at) %>
-        <div class="text-xs text-accent-orange mb-1 font-heading">
+        <div class="text-xs text-accent-orange mb-1">
           🔓 答えが公開されました
         </div>
       <% end %>
 
-      <p class="text-sm text-forest-green font-heading mb-1">
+      <p class="text-sm text-forest-green mb-1">
         カテゴリ: <%= post.category.name %>
       </p>
 

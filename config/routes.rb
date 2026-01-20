@@ -50,6 +50,6 @@ Rails.application.routes.draw do
 
 
   resources :anniversaries, only: [:index, :new, :create]
-  resource :board, only: [:show]
+  resource :board, only: [:show, :update]
 
 end
