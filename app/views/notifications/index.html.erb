@@ -3,7 +3,7 @@
 <% content_for(:back_path, main_path) %>
 
 
-<div data-controller="notifications" class="container mx-auto px-4 py-6">
+<div data-controller="notifications" class="relative z-10 max-w-md mx-auto px-4 py-2 space-y-6 min-h-screen mb-24">
   
   <% if @notifications.present? %>
     <div class="space-y-3">
@@ -26,7 +26,7 @@
               </span>
 
               <!-- 投稿タイトル or ヒント -->
-              <div class="mt-1 text-xs text-gray-600">
+              <div class="mt-1 text-sm text-gray-600">
                 📝
                 <% if notification.post.present? %>
                   <% if notification.post.reveal_at <= Time.current %>
@@ -40,7 +40,7 @@
             
             
             <!-- 通知の作成時間 -->
-            <span class="text-sm text-gray-500 ml-4 whitespace-nowrap">
+            <span class="text-xs text-gray-500 ml-4 whitespace-nowrap">
               <%= time_ago_in_words(notification.created_at) %>前
             </span>
           </div>

@@ -74,5 +74,7 @@ ja:
   notification_options:
     immediate: "すぐ通知"
     off: "通知しない"
+  board:
+    index: "伝言板"
 
 

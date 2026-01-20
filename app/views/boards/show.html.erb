@@ -1,0 +1,72 @@
+<% content_for(:page_title, t('board.index')) %>
+<% content_for(:show_back_button, false) %>
+<% content_for(:back_path, main_path) %>
+
+<div class="relative z-10 max-w-md mx-auto px-4 py-2 space-y-6 min-h-screen mb-15">
+
+  <!-- 伝言板 -->
+  <div class="bg-white rounded-xl p-4 shadow-sm space-y-3">
+    <h2 class="text-base font-heading">2人の共有メモ</h2>
+
+    <%= form_with model: @board, url: board_path, method: :patch do |f| %>
+      <%= f.text_area :content,
+        rows: 5,
+        placeholder: "ここに伝言を書いてね",
+        class: "w-full rounded-lg border px-3 py-2 text-sm bg-white" %>
+
+      <div class="text-right mt-2">
+        <%= f.submit "保存", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- 記念日 -->
+  <div class="bg-white rounded-xl p-4 shadow-sm space-y-3">
+    <h2 class="text-base font-heading">記念日 ※通知機能は未実装です</h2>
+
+    <% if @anniversaries.any? %>
+      <ul class="space-y-2 text-sm">
+        <% @anniversaries.each do |anniversary| %>
+          <li class="flex justify-between items-center">
+            <!-- 左：タイトルと日付 -->
+              <div>
+                <span class="text-forest-green font-heading"><%= anniversary.title %></span>
+                <span class="text-wood-light ml-2">
+                  <%= anniversary.date.strftime("%m/%d") %>
+                  <% if anniversary.yearly? %>(毎年)<% end %>
+                  <% if anniversary.monthly? %>(毎月)<% end %>
+                </span>
+              </div>
+
+
+            <!-- 右：編集と削除ボタン -->
+            <div class="flex gap-2">
+              <%= link_to edit_anniversary_path(anniversary),
+                    class: "btn btn-secondary p-1 text-xs flex items-center justify-center" do %>
+                ✏️
+              <% end %>
+
+              <%= button_to anniversary_path(anniversary),
+                    method: :delete,
+                    data: { turbo_confirm: "本当に削除しますか？" },
+                    class: "btn btn-danger p-1 text-xs flex items-center justify-center" do %>
+                🗑️
+              <% end %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+
+    <% else %>
+      <p class="text-description">まだ記念日がありません</p>
+    <% end %>
+
+    <div class="text-right mt-2">
+      <%= link_to "＋ 記念日を追加", new_anniversary_path,
+            class: "btn btn-primary" %>
+    </div>
+  </div>
+
+
+
+</div>

@@ -10,9 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_12_23_033248) do
+ActiveRecord::Schema[7.2].define(version: 2026_01_20_081012) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "anniversaries", force: :cascade do |t|
+    t.bigint "pair_id", null: false
+    t.string "title", null: false
+    t.date "date", null: false
+    t.integer "repeat_type", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pair_id"], name: "index_anniversaries_on_pair_id"
+  end
+
+  create_table "boards", force: :cascade do |t|
+    t.bigint "pair_id", null: false
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pair_id"], name: "index_boards_on_pair_id"
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string "icon"
@@ -102,6 +120,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_23_033248) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "anniversaries", "pairs"
+  add_foreign_key "boards", "pairs"
   add_foreign_key "notifications", "users"
   add_foreign_key "pairs", "users", column: "user_id1"
   add_foreign_key "pairs", "users", column: "user_id2"

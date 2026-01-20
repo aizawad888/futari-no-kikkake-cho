@@ -1,0 +1,25 @@
+<%= form_with model: anniversary, local: true do |f| %>
+  <div>
+    <%= f.label :title, "タイトル", class: "block text-sm font-heading" %>
+    <%= f.text_field :title, class: "w-full rounded-lg border px-3 py-2 mt-1 text-sm" %>
+  </div>
+
+  <div>
+    <%= f.label :date, "日付", class: "block text-sm font-heading mt-2" %>
+    <%= f.date_field :date, class: "w-full rounded-lg border px-3 py-2 mt-1 text-sm" %>
+  </div>
+
+  <div>
+    <%= f.label :repeat_type, "繰り返し", class: "block text-sm font-heading mt-2" %>
+    <%= f.select :repeat_type, 
+      [["繰り返さない", "no_repeat"], 
+       ["毎月", "monthly"], 
+       ["毎年", "yearly"]], 
+      {}, 
+      class: "w-full rounded-lg border px-3 py-2 mt-1 text-sm" %>
+  </div>
+
+  <div class="text-right mt-4">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

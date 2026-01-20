@@ -1,7 +1,7 @@
 <% content_for(:page_title, @post.title_for_view(current_user)) %>
 <% content_for(:show_back_button, true) %>
 
-<div class="max-w-md mx-auto px-4 py-6 space-y-6">
+<div class="max-w-md mx-auto px-4 py-6 space-y-6 mb-24">
 
   <!-- 上半分カード（タイトル・投稿情報） -->
   <div class="card-notebook bg-white p-4 space-y-2">
@@ -33,7 +33,7 @@
 
   <!-- 相手にどう見えているか（投稿者のみ） -->
   <% if @post.user == current_user %>
-    <div class="rounded-xl border border-cream bg-light-cream p-4 text-xs space-y-2">
+    <div class="rounded-xl border border-cream bg-light-cream p-4 text-sm space-y-2">
       <% if @post.reveal_at.present? && Time.current < @post.reveal_at %>
         <p class="text-accent-orange">
           👀 相手にはまだ <strong>ヒント</strong> が表示されています
@@ -68,7 +68,7 @@
 
   <!-- 自分用メモ -->
   <div class="bg-wood-light/30 rounded-lg p-4 space-y-3">
-    <h3 class="font-semibold text-wood-dark text-sm">自分用メモ</h3>
+    <h3 class="font-heading text-wood-dark text-sm">自分用メモ</h3>
 
     <%= form_with model: @post_memo, local: true do |f| %>
       <%= f.hidden_field :post_id, value: @post.id %>

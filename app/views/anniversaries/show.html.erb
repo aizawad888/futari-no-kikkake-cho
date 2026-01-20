@@ -1,0 +1,23 @@
+<% content_for(:page_title, "記念日詳細") %>
+<% content_for(:show_back_button, true) %>
+<% content_for(:back_path, board_path) %>
+
+<div class="max-w-md mx-auto px-4 py-6 space-y-4">
+  <div class="bg-white rounded-xl p-4 shadow-sm space-y-3">
+    <h2 class="text-base font-heading"><%= @anniversary.title %></h2>
+
+    <p class="text-sm text-wood-light">
+      日付：<%= @anniversary.date.strftime("%Y/%m/%d") %>
+      <% if @anniversary.yearly? %>（毎年）<% end %>
+      <% if @anniversary.monthly? %>（毎月）<% end %>
+    </p>
+
+    <div class="flex justify-end gap-2 mt-4">
+      <%= link_to "編集", edit_anniversary_path(@anniversary), class: "btn btn-secondary text-sm" %>
+      <%= link_to "削除", anniversary_path(@anniversary),
+            method: :delete,
+            data: { confirm: "本当に削除しますか？" },
+            class: "btn btn-danger text-sm" %>
+    </div>
+  </div>
+</div>

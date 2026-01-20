@@ -14,7 +14,7 @@
     <!-- タイトル -->
     <div>
       <%= f.label :title, "タイトル",
-            class: "block text-sm font-heading font-medium mb-1 text-forest-green" %>
+            class: "block text-base font-heading mb-1 text-forest-green" %>
       <%= f.text_field :title,
             class: "w-full rounded-lg border border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sage" %>
     </div>
@@ -22,7 +22,7 @@
     <!-- カテゴリ -->
     <div>
       <%= f.label :category_id, "カテゴリ",
-            class: "block text-sm font-heading font-medium mb-1 text-forest-green" %>
+            class: "block text-base font-heading mb-1 text-forest-green" %>
       <%= f.select :category_id,
         Category.all.map { |c| [c.name, c.id, { "data-hint": c.hint_text }] },
         {},
@@ -30,17 +30,17 @@
       %>
     </div>
 
-    <p class="mt-2 mb-1 text-xs text-wood-light font-body italic">
+    <p class="mt-2 mb-1 text-description italic">
       相手に表示されるヒント：
     </p>
-    <p id="category-hint" class="text-sm text-wood-light italic font-body">
-      カテゴリを選ぶと、相手に表示されるヒントが出ます
+    <p id="category-hint" class="text-description italic ">
+      カテゴリを選ぶと、相手に表示されるヒントが表示されます
     </p>
 
     <!-- 優先度 -->
     <div>
       <%= f.label :sense_level, "優先度",
-            class: "block text-sm font-heading font-medium mb-1 text-forest-green" %>
+            class: "block text-base font-heading mb-1 text-forest-green" %>
       <%= f.select :sense_level,
             Post.sense_levels.keys.map { |k| [Post.sense_level_jp_for(k), k] },
             {},
@@ -49,15 +49,15 @@
 
     <!-- 答え合わせ -->
     <div>
-      <%= f.label :reveal_at, "答え合わせ", class: "block text-sm font-heading font-medium mb-1 text-forest-green" %>
+      <%= f.label :reveal_at, "答え合わせ", class: "block text-base font-heading mb-1 text-forest-green" %>
 
       <% if f.object.persisted? %>
         <!-- 編集画面：日時直接入力 -->
         <%= f.datetime_local_field :reveal_at,
           value: f.object.reveal_at&.strftime("%Y-%m-%dT%H:%M"),
           class: "w-full rounded-lg border border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sage bg-white" %>
-        <p class="text-xs text-wood-light mt-1 font-body">
-          相手に見える答え合わせの日時を指定できます
+        <p class="text-xs text-wood-light mt-1 ">
+          相手に内容が表示される日時を指定できます
         </p>
       <% else %>
         <!-- 新規作成：○分後 select -->
@@ -78,8 +78,8 @@
               options_for_select(options),
               {}, 
               class: "w-full rounded-lg border border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sage bg-white" %>
-        <p class="text-xs text-wood-light mt-1 font-body">
-          相手に見えるタイミングを選べます
+        <p class="text-description">
+          相手に内容が表示されるタイミングの設定
         </p>
       <% end %>
     </div>

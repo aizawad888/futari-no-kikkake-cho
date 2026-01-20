@@ -6,6 +6,9 @@ class Pair < ApplicationRecord
   validates :user_id2, uniqueness: { scope: [ :user_id1, :active ], message: "はすでに有効なペアです" }, if: -> { active? }
 
   has_many :posts, dependent: :nullify
+  has_many :anniversaries, dependent: :destroy
+  has_one :board, dependent: :destroy
+
 
   # 自分のパートナーを返す
   def partner(current_user)

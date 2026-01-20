@@ -47,4 +47,9 @@ Rails.application.routes.draw do
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
+
+
+  resources :anniversaries, only: [ :index, :new, :create, :show, :edit, :update, :destroy ]
+
+  resource :board, only: [ :show, :update ]
 end
