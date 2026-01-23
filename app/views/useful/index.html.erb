@@ -1,0 +1,29 @@
+<% content_for(:page_title, "お役立ち") %>
+<% content_for(:show_back_button, false) %>
+<% content_for(:back_path, main_path) %>
+
+<div class="relative z-10 max-w-md mx-auto px-4 py-2 space-y-6 min-h-screen mb-15">
+
+  <!-- 縦並び -->
+  <div class="space-y-6">
+    <!-- ① 1週間の振り返り -->
+    <div class="p-6 bg-cream rounded-xl shadow hover:shadow-md/20 transition  block">
+      <h2 class="text-earth-brown text-xl font-semibold mb-2">1週間の振り返り</h2>
+      <p class="ext-wood-dark">工事中</p>
+    </div>
+
+    <!-- ② 今日できる簡単なこと -->
+    <%= link_to daily_tasks_path, class: "p-6 bg-cream rounded-xl shadow hover:shadow-md/20 transition  block" do %>
+      <h2 class="text-earth-brown text-xl font-semibold mb-2">今日できる簡単なこと</h2>
+      <p class="text-wood-dark">リアルコミュニケーションを支える小さなタスクと、便利な言い換え文言集</p>
+    <% end %>
+    </div>
+
+    <!-- ③ ルールブック -->
+    <%= link_to rule_items_path, class: "p-6 bg-cream rounded-xl shadow hover:shadow-md/20 transition  block" do %>
+      <h2 class="text-earth-brown text-xl font-semibold mb-2">ふたりのルールブック</h2>
+      <p class="text-wood-dark">定期的にすり合わせたいことリスト</p>
+    <% end %>
+  </div>
+
+</div>

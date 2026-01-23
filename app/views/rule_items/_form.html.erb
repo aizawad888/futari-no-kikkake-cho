@@ -1,0 +1,50 @@
+<% if rule_item.errors.any? %>
+  <div class="bg-cream text-wood-dark text-sm rounded-lg px-4 py-3">
+    <ul class="list-disc list-inside space-y-1">
+      <% rule_item.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: rule_item, data: { turbo: false } do |f| %>
+  <div class="space-y-5">
+
+    <!-- タイトル -->
+    <div>
+      <%= f.label :title, "タイトル", class: "block text-base font-heading mb-1 text-forest-green" %>
+      <%= f.text_field :title,
+            class: "w-full rounded-lg border border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sage" %>
+    </div>
+
+    <!-- 自分のメモ -->
+    <div>
+      <%= f.label :memo, "自分のメモ", class: "block text-base font-heading mb-1 text-forest-green" %>
+      <%= f.text_area :memo,
+            rows: 4,
+            class: "w-full rounded-lg border border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sage" %>
+    </div>
+
+    <!-- 相手のメモ（表示のみ） -->
+    <% if rule_item.persisted? && rule_item.pair.present? %>
+      <% partner_user = rule_item.pair.user1 == current_user ? rule_item.pair.user2 : rule_item.pair.user1 %>
+      <% partner_item = rule_item.pair.rule_items.find_by(user: partner_user, title: rule_item.title) %>
+      <% if partner_item %>
+        <div>
+          <label class="block text-base font-heading mb-1 text-forest-green">相手のメモ (編集不可)</label>
+          <div class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm bg-light-cream text-wood-dark">
+            <%= partner_item.memo.presence || 'まだ入力されていません' %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+    <!-- 送信 -->
+    <div class="pt-4 flex justify-end">
+      <%= f.submit "保存する", class: "btn btn-primary" %>
+      <%= link_to 'キャンセル', rule_items_path, class: "btn btn-secondary ml-2" %>
+    </div>
+
+  </div>
+<% end %>

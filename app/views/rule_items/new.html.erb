@@ -1,0 +1,13 @@
+<% content_for(:page_title, "新しいルール項目を追加") %>
+<% content_for(:show_back_button, true) %>
+<% content_for(:back_path, rule_items_path) %>
+
+<div class="max-w-md mx-auto px-4 py-6 mb-24">
+  <div class="card-notebook bg-white p-6 space-y-6">
+    <p class="text-description">
+      新しいルール項目を追加できます。保存するまで反映されません。
+    </p>
+
+    <%= render "form", rule_item: @rule_item %>
+  </div>
+</div>

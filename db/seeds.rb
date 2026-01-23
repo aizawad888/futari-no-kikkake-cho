@@ -57,3 +57,21 @@ categories.each do |data|
     c.hint_text = data[:hint_text]
   end
 end
+
+
+# ふたりのルールブック
+fixed_titles = [
+  "家事の優先度",
+  "お金のルール",
+  "睡眠や休息の優先度",
+  "連絡の取り方",
+  "大事にしたい時間"
+]
+
+Pair.find_each do |pair|
+  [ pair.user1, pair.user2 ].each do |user|
+    fixed_titles.each do |title|
+      RuleItem.find_or_create_by!(pair_id: pair.id, user: user, title: title)
+    end
+  end
+end

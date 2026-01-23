@@ -1,0 +1,54 @@
+<% content_for(:page_title, "ふたりのルールブック") %>
+<% content_for(:show_back_button, true) %>
+<% content_for(:back_path, useful_path) %>
+
+<div class="relative z-10 max-w-md mx-auto px-4 py-4 pb-24 space-y-3 min-h-screen">
+
+  <% if @rule_items_grouped.empty? %>
+    <div class="bg-cream rounded-xl p-4 text-wood-light text-sm shadow-sm">
+      まだルール項目がありません
+    </div>
+  <% end %>
+
+  <% @rule_items_grouped.each do |title, items| %>
+    <div class="bg-white rounded-xl shadow-sm p-3 space-y-2 card-notebook">
+      <!-- タイトル行：タイトル＋編集・削除ボタン -->
+      <% own_item = items.find { |i| i.user == current_user } %>
+      <div class="flex justify-between items-center mb-2">
+        <h3 class="text-base font-heading text-forest-green"><%= title %></h3>
+
+        <% if own_item %>
+          <div class="flex gap-2">
+            <!-- 編集 -->
+            <%= link_to edit_rule_item_path(own_item),
+                  class: "btn btn-secondary p-1 text-xs flex items-center justify-center" do %>
+              ✏️
+            <% end %>
+
+            <!-- 削除 -->
+            <%= button_to rule_item_path(own_item),
+                  method: :delete,
+                  data: { turbo_confirm: "相手の入力も消えます。本当に削除しますか？" },
+                  class: "btn btn-danger p-1 text-xs flex items-center justify-center" do %>
+              🗑️
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- 自分と相手のメモ -->
+      <% items.each do |item| %>
+        <div class="flex justify-between items-start border-b border-gray-200 py-1">
+          <div>
+            <strong class="text-sm text-wood-dark"><%= item.user == current_user ? '自分' : '相手' %>:</strong>
+            <span class="text-sm text-wood-dark ml-1"><%= item.memo.presence || 'まだ入力されていません' %></span>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+
+  <%= link_to '新しいルールを追加', new_rule_item_path,
+              class: "block mt-3 w-full py-2 text-center rounded-lg shadow btn-primary" %>
+</div>

@@ -4,6 +4,8 @@ ja:
       post:
         title: タイトル
         reveal_at: 答え合わせのタイミング
+      rule_item:
+        title: "タイトル"
   enums:
     user:
       sex:

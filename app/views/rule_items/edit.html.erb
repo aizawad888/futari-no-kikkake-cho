@@ -1,0 +1,18 @@
+<% content_for(:page_title, "#{@rule_item.title}｜ 編集中") %>
+<% content_for(:show_back_button, true) %>
+<% content_for(:back_path, useful_path) %>
+
+<div class="max-w-md mx-auto px-4 py-6 mb-24">
+  <div class="card-notebook bg-white p-6 space-y-6">
+
+    <!-- ページ説明 -->
+    <p class="text-description">
+      項目を編集できます。<br>
+      タイトルは相手と共同編集になります。<br>
+      保存するまで変更は反映されません。
+    </p>
+
+    <%= render "form", rule_item: @rule_item %>
+
+  </div>
+</div>

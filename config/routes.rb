@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "useful/index"
   root "home#index"
 
   get "notification_settings/show"
@@ -52,4 +53,13 @@ Rails.application.routes.draw do
   resources :anniversaries, only: [ :index, :new, :create, :show, :edit, :update, :destroy ]
 
   resource :board, only: [ :show, :update ]
+
+  # お役立ちページの分岐
+  get "useful", to: "useful#index", as: :useful
+
+  # 今日できる簡単なこと
+  get "daily_tasks", to: "daily_tasks#index"
+
+  # ルールブック
+  resources :rule_items, only: [ :index, :new, :create, :edit, :update, :destroy ]
 end

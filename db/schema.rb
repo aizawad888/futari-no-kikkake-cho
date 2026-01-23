@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_01_20_081012) do
+ActiveRecord::Schema[7.2].define(version: 2026_01_23_010658) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -89,6 +89,19 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_20_081012) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
+  create_table "rule_items", force: :cascade do |t|
+    t.bigint "pair_id", null: false
+    t.bigint "user_id", null: false
+    t.string "category"
+    t.string "title"
+    t.text "memo"
+    t.boolean "is_custom"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pair_id"], name: "index_rule_items_on_pair_id"
+    t.index ["user_id"], name: "index_rule_items_on_user_id"
+  end
+
   create_table "user_notification_settings", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "notification_kind", null: false
@@ -130,5 +143,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_20_081012) do
   add_foreign_key "posts", "categories"
   add_foreign_key "posts", "pairs"
   add_foreign_key "posts", "users"
+  add_foreign_key "rule_items", "pairs"
+  add_foreign_key "rule_items", "users"
   add_foreign_key "user_notification_settings", "users"
 end
