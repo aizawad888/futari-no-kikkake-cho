@@ -22,7 +22,7 @@
 
   <!-- 記念日 -->
   <div class="bg-white rounded-xl p-4 shadow-sm space-y-3">
-    <h2 class="text-base font-heading">記念日 ※通知機能は未実装です</h2>
+    <h2 class="text-base font-heading">記念日</h2>
 
     <% if @anniversaries.any? %>
       <ul class="space-y-2 text-sm">
@@ -32,10 +32,15 @@
               <div>
                 <span class="text-forest-green font-heading"><%= anniversary.title %></span>
                 <span class="text-wood-light ml-2">
-                  <%= anniversary.date.strftime("%m/%d") %>
-                  <% if anniversary.yearly? %>(毎年)<% end %>
-                  <% if anniversary.monthly? %>(毎月)<% end %>
+                  <% if anniversary.monthly? %>
+                    毎月 <%= anniversary.date.day %>日
+                  <% elsif anniversary.yearly? %>
+                    毎年 <%= anniversary.date.strftime("%m/%d") %>
+                  <% else %>
+                    <%= anniversary.date.strftime("%Y/%m/%d") %>
+                  <% end %>
                 </span>
+
               </div>
 
 

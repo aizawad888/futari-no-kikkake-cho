@@ -25,7 +25,14 @@ class Notification < ApplicationRecord
 
   # 表示用メッセージ
   def message
-    I18n.t("enums.notification.notification_kind.#{notification_kind}")
+    if notification_kind.to_sym == :anniversary
+      I18n.t(
+        "enums.notification.notification_kind.anniversary",
+        title: notifiable&.title || "記念日"
+      )
+    else
+      I18n.t("enums.notification.notification_kind.#{notification_kind}")
+    end
   end
 
   def post

@@ -1,10 +1,9 @@
-<% content_for(:page_title, "#{current_user.name || 'あなた'}と#{@partner&.name || 'あいて'}の察し手帳") %>
+<% content_for(:page_title, "メインページ") %>
 <% content_for(:show_back_button, false) %>
 <% content_for(:back_path, main_path) %>
 
 
 <div class="relative z-10 max-w-md mx-auto px-4 py-2 space-y-6 min-h-screen mb-15">
-
 
   <% if @partner.nil? %>
     <p class="text-sm text-wood-dark">
@@ -78,13 +77,12 @@
       <h2 class="text-lg font-semibold mb-4">デモモードです</h2>
       <ul class="list-disc list-inside space-y-2 text-sm text-gray-700">
         <li>右下の+ボタンから投稿できます</li>
-        <li>サンプル投稿を押すと詳細画面に移動します</li>
         <li>「お願いごとがあるみたい！」の投稿は答え合わせ前で、1分後に通知が届きます</li>
         <li>マイページでアイコン変更やペア解消も体験できます</li>
         <li>投稿や設定はログアウト時にリセットされます</li>
         <li>デモモードを同時利用中はデータが上書きされることがあります</li>
       </ul>
-      <button class="mt-4 px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 close-modal">閉じる</button>
+      <button class="mt-4 px-4 py-2 rounded  close-modal btn-primary">閉じる</button>
     </div>
   </div>
 <% end %>

@@ -14,7 +14,7 @@ ja:
       notification_kind:
         new_post: "新しい投稿があったよ!"
         post_unlocked: "答えが見られるようになったよ!"
-        anniversary: "今日は記念日だよ!"
+        anniversary: "今日は記念日だよ! 🎉"
         weekly_summary: "今週のまとめだよ!"
   users:
     sessions:

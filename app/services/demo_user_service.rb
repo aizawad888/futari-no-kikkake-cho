@@ -9,10 +9,13 @@ class DemoUserService
       user1, user2 = create_users
       pair = create_pair(user1, user2)
       create_posts(user1, user2, pair)
+      create_anniversaries(pair)
       create_notifications(user1)
 
       user1 # ログインするユーザーを返す
     end
+
+
 
     private
 
@@ -118,6 +121,29 @@ class DemoUserService
           read_at: nil
         )
       end
+    end
+
+    def create_anniversaries(pair)
+      Anniversary.create!(
+        pair: pair,
+        title: "付き合った記念日",
+        date: Date.current,
+        repeat_type: :yearly
+      )
+
+      Anniversary.create!(
+        pair: pair,
+        title: "毎月23日はケーキの日",
+        date: Date.current.change(day: 23),
+        repeat_type: :monthly
+      )
+
+      Anniversary.create!(
+        pair: pair,
+        title: "このアプリを始めた日",
+        date: Date.current,
+        repeat_type: :no_repeat
+      )
     end
   end
 end

@@ -1,5 +1,5 @@
 <header class="sticky top-0 bg-sage border-b border-gray-200 z-50">
-  <div class="flex items-center px-4 py-4 max-w-7xl mx-auto">
+  <div class="flex items-center px-4 py-2 max-w-7xl mx-auto">
 
     <!-- 左側：戻るボタン -->
     <div class="w-10 shrink-0">
@@ -16,8 +16,8 @@
     </div>
 
     <!-- 中央：ページタイトル -->
-    <div class="flex-1 px-2 text-center max-w-[70%] mx-auto">
-      <h1 class="text-m font-bold text-wood-dark leading-snug break-words">
+    <div class="flex-1 px-2 text-center max-w-[80%] mx-auto">
+      <h1 class="text-base font-bold text-wood-dark leading-snug break-words">
         <%= content_for?(:page_title) ? yield(:page_title) : "ふたりのきっかけ帳" %>
       </h1>
     </div>

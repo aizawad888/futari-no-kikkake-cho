@@ -1,6 +1,6 @@
 <% content_for(:page_title, "記念日詳細") %>
 <% content_for(:show_back_button, true) %>
-<% content_for(:back_path, board_path) %>
+
 
 <div class="max-w-md mx-auto px-4 py-6 space-y-4">
   <div class="bg-white rounded-xl p-4 shadow-sm space-y-3">
@@ -21,3 +21,9 @@
     </div>
   </div>
 </div>
+
+<div class="text-center mt-6">
+  <%= link_to "← 記念日一覧に戻る", board_path,
+        class: "text-sm text-wood-dark underline hover:text-forest-green transition" %>
+</div>
+

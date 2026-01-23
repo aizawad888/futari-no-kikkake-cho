@@ -25,17 +25,21 @@
                 <%= notification.message %>
               </span>
 
-              <!-- 投稿タイトル or ヒント -->
-              <div class="mt-1 text-sm text-gray-600">
-                📝
-                <% if notification.post.present? %>
-                  <% if notification.post.reveal_at <= Time.current %>
-                    <%= notification.post.title %>
-                  <% else %>
-                    <%= notification.post.category.hint_text %> <!-- カテゴリごとのヒントテキスト -->
+              <!-- 投稿タイトル or ヒント or 記念日タイトル -->
+                <div class="mt-1 text-sm text-gray-600">
+                  <% if notification.notification_kind == "anniversary" && notification.notifiable.present? %>
+                    🎉 <%= notification.notifiable.title %>
+
+                  <% elsif notification.post.present? %>
+                    📝
+                    <% if notification.post.reveal_at <= Time.current %>
+                      <%= notification.post.title %>
+                    <% else %>
+                      <%= notification.post.category.hint_text %>
+                    <% end %>
                   <% end %>
-                <% end %>
-              </div>
+                </div>
+
             </div>
             
             

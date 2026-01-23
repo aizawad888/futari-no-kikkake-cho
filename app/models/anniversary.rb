@@ -8,4 +8,17 @@ class Anniversary < ApplicationRecord
   }
 
   validates :title, :date, :repeat_type, presence: true
+
+  def today?
+    today = Date.current
+
+    case repeat_type.to_sym
+    when :no_repeat
+      date == today
+    when :monthly
+      date.day == today.day
+    when :yearly
+      date.month == today.month && date.day == today.day
+    end
+  end
 end
