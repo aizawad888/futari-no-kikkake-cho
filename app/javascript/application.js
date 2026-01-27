@@ -51,3 +51,21 @@ document.addEventListener("turbo:load", () => {
   });
 });
 
+
+const showLoading = () => {
+  document.getElementById("global-loading")?.classList.remove("hidden");
+};
+
+const hideLoading = () => {
+  document.getElementById("global-loading")?.classList.add("hidden");
+};
+
+document.addEventListener("turbo:submit-start", (e) => {
+  showLoading();
+  e.target.querySelectorAll("button").forEach(b => b.disabled = true);
+});
+
+document.addEventListener("turbo:submit-end", hideLoading);
+
+document.addEventListener("turbo:visit", showLoading);
+document.addEventListener("turbo:load", hideLoading);
