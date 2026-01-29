@@ -1,5 +1,6 @@
 class Post < ApplicationRecord
   attr_accessor :reveal_offset_seconds
+
   belongs_to :user
   belongs_to :pair, optional: true
   belongs_to :category

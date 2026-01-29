@@ -1,0 +1,16 @@
+<% content_for(:page_title, "プリセット編集") %>
+
+<div class="max-w-md mx-auto px-4 py-6">
+  <%= form_with model: @preset, local: true do |f| %>
+    <div class="mb-4">
+      <%= f.label :title, "タイトル", class: "block text-sm font-medium text-forest-green mb-1" %>
+      <%= f.text_field :title,
+            class: "w-full rounded-lg border border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sage" %>
+    </div>
+
+    <div class="flex gap-2">
+      <%= f.submit "保存", class: "btn btn-primary" %>
+      <%= link_to "キャンセル", presets_path, class: "btn btn-secondary" %>
+    </div>
+  <% end %>
+</div>

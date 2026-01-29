@@ -20,7 +20,7 @@
     </div>
 
     <!-- 右側 -->
-    <div class="flex flex-col flex-grow space-y-1">
+    <div class="flex flex-col flex-grow space-y-1 min-w-0">
 
       <% if post.just_unlocked?(last_viewed_at) %>
         <div class="text-xs text-accent-orange mb-1">
@@ -34,18 +34,17 @@
 
       <% locked = post.reveal_at.present? && Time.current < post.reveal_at %>
 
-      <h3 class="text-base mb-2 font-heading
-                <%= locked && post.user != current_user ?
-                    'text-accent-orange font-semibold text-lg' :
-                    'text-forest-green font-semibold text-lg' %>">
+      <h3 class="text-base mb-2 font-heading font-semibold
+           <%= locked && post.user != current_user ? 'text-accent-orange' : 'text-forest-green' %>
+           line-clamp-2 break-words overflow-hidden min-w-0">
         <%= post.title_for_view(current_user) %>
-
         <% if last_viewed_at.nil? || post.created_at > last_viewed_at %>
           <span class="ml-2 text-xs bg-accent-orange text-white px-2 py-0.5 rounded-full font-heading">
             New
           </span>
         <% end %>
       </h3>
+
 
 
       <% if post.reveal_at.present? && Time.current < post.reveal_at %>

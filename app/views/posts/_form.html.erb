@@ -11,13 +11,41 @@
 <%= form_with model: post, data: { turbo: false } do |f| %>
   <div class="space-y-5">
 
-    <!-- タイトル -->
+    <!-- 投稿タイトル -->
     <div>
-      <%= f.label :title, "タイトル",
-            class: "block text-base font-heading mb-1 text-forest-green" %>
-      <%= f.text_field :title,
+      <%= f.label :title, "タイトル", class: "block text-base font-heading mb-1 text-forest-green" %>
+      <%= f.text_field :title, id: "post_title",
             class: "w-full rounded-lg border border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sage" %>
     </div>
+
+    <!-- プリセットボタン -->
+    <p class="flex items-center text-xs text-wood-light mt-1">
+      登録プリセット　　
+      <%= link_to ">>編集", presets_path, class: "underline text-forest-green" %>
+    </p>
+
+    <% presets = current_user.presets.order(created_at: :desc) %>
+      <% if presets.any? %>
+        <div class="mt-2 flex flex-wrap gap-2">
+          <% presets.each_with_index do |preset, i| %>
+            <button type="button"
+                    onclick="document.getElementById('post_title').value = '<%= j preset.title %>'"
+                    class="px-2 py-1 text-xs rounded-full bg-sage/20 text-forest-green <%= 'hidden extra-preset' if i >= 3 %>">
+              <%= truncate(preset.title, length: 20) %>
+            </button>
+          <% end %>
+
+          <% if presets.size > 3 %>
+            <button type="button"
+                    id="toggle-presets"
+                    class="px-2 py-1 text-xs rounded-full bg-forest-green text-white">
+              ＋ もっと見る
+            </button>
+          <% end %>
+        </div>
+      <% end %>
+
+
 
     <!-- カテゴリ -->
     <div>
@@ -91,4 +119,10 @@
     </div>
 
   </div>
+
 <% end %>
+
+
+
+
+

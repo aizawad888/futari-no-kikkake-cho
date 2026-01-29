@@ -26,8 +26,18 @@
 
   <!-- 通知設定カード -->
   <div class="card-notebook bg-white p-5">
+  <h3 class="text-base font-heading text-forest-green mb-2">通知設定</h3>
     <%= link_to "プッシュ通知設定を変更する(工事中)",
           notification_settings_path,
+          class: "btn btn-primary w-full text-center" %>
+  </div>
+
+  <!-- 投稿プリセットカード -->
+  <div class="card-notebook bg-white p-5">
+  <h3 class="text-base font-heading text-forest-green mb-2">投稿プリセット</h3>
+    よく使うタイトルを登録しておくことができます
+    <%= link_to "投稿プリセット設定を変更する",
+          presets_path,
           class: "btn btn-primary w-full text-center" %>
   </div>
 

@@ -69,3 +69,26 @@ document.addEventListener("turbo:submit-end", hideLoading);
 
 document.addEventListener("turbo:visit", showLoading);
 document.addEventListener("turbo:load", hideLoading);
+
+
+function togglePresets() {
+  const extraButtons = document.querySelectorAll('.extra-preset');
+  extraButtons.forEach(btn => btn.classList.toggle('hidden'));
+
+  // ボタンの文言も切り替える
+  const toggleBtn = document.getElementById('toggle-presets');
+  if (toggleBtn) {
+    toggleBtn.textContent = toggleBtn.textContent === '＋ もっと見る' ? '閉じる' : '＋ もっと見る';
+  }
+}
+
+// グローバルにして ERB から呼べるようにする
+window.togglePresets = togglePresets;
+
+// ページ読み込み時にクリックイベントを設定
+document.addEventListener('DOMContentLoaded', () => {
+  const toggleBtn = document.getElementById('toggle-presets');
+  if (toggleBtn) toggleBtn.addEventListener('click', togglePresets);
+});
+
+

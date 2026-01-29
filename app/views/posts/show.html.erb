@@ -7,9 +7,14 @@
   <div class="card-notebook bg-white p-4 space-y-2">
 
     <!-- タイトル -->
-    <h2 class="text-xl font-semibold text-forest-green font-heading">
-      <%= @post.title_for_view(current_user) %>
-    </h2>
+    <div class="flex items-start gap-2">
+      <h2 class="text-xl font-semibold text-forest-green font-heading break-words flex-1 min-w-0">
+        <%= @post.title_for_view(current_user) %>
+      </h2>
+
+    </div>
+
+
 
     <!-- 投稿情報 -->
     <p class="text-sm text-wood-dark">カテゴリ：<%= @post.category.name %></p>

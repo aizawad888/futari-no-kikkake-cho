@@ -68,4 +68,7 @@ Rails.application.routes.draw do
   get "contact", to: "pages#contact"
   get "terms",   to: "pages#terms"
   get "privacy", to: "pages#privacy"
+
+  # 投稿プリセット
+  resources :presets, only: [ :index, :new, :create, :edit, :update, :destroy ]
 end

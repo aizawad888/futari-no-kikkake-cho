@@ -16,10 +16,18 @@
     </div>
 
     <!-- 中央：ページタイトル -->
-    <div class="flex-1 px-2 text-center max-w-[80%] mx-auto">
-      <h1 class="text-base font-bold text-wood-dark leading-snug break-words">
-        <%= content_for?(:page_title) ? yield(:page_title) : "ふたりのきっかけ帳" %>
-      </h1>
+    <div class="flex-1 px-2 text-center max-w-[80%] mx-auto min-w-0">
+      <% full_title = content_for?(:page_title) ? yield(:page_title) : "ふたりのきっかけ帳" %>
+      <% if full_title.include?("｜") %>
+        <% base_title, suffix = full_title.split("｜", 2) %>
+        <h1 class="text-base font-bold text-wood-dark leading-snug break-words line-clamp-2">
+          <%= truncate(base_title, length: 25, separator: "…") %>｜<%= suffix %>
+        </h1>
+      <% else %>
+        <h1 class="text-base font-bold text-wood-dark leading-snug break-words line-clamp-2">
+          <%= truncate(full_title, length: 28, separator: "…") %>
+        </h1>
+      <% end %>
     </div>
 
     <!-- 右側：ログアウト -->

@@ -1,0 +1,59 @@
+<% content_for(:page_title, 'プリセット一覧') %>
+
+<div class="max-w-md mx-auto px-4 py-6 space-y-6 mb-24">
+
+  <!-- 新規追加フォーム -->
+  <%= form_with model: @preset, local: true do |f| %>
+    <div class="flex gap-2 items-stretch mb-2">
+      <%= f.text_field :title,
+            placeholder: "新しいプリセットタイトル",
+            class: "flex-1 min-w-0 min-h-[44px] rounded-lg border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sage" %>
+      <%= f.submit "追加", class: "btn btn-primary flex-shrink-0 min-h-[44px]" %>
+    </div>
+
+    <div class="text-red-600 text-sm min-h-[1.5rem]">
+      <% if @preset.errors.any? %>
+        <%= @preset.errors.full_messages.join(", ") %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <!-- 一覧 -->
+  <div class="space-y-2">
+    <% @presets.each do |preset| %>
+      <div class="flex items-center justify-between bg-sage/10 px-3 py-2 rounded">
+        
+        <!-- タイトル部分：折り返し＆幅制限 -->
+        <span class="break-words whitespace-normal max-w-[70%]"><%= preset.title %></span>
+        
+        <!-- 編集・削除ボタン：アニバーサリー風 -->
+        <div class="flex gap-2 shrink-0">
+          <!-- 編集 -->
+          <%= link_to edit_preset_path(preset),
+                class: "btn btn-secondary p-1 text-xs flex items-center justify-center" do %>
+            ✏️
+          <% end %>
+
+          <!-- 削除 -->
+          <%= button_to preset_path(preset),
+                method: :delete,
+                form: { data: { turbo_confirm: "本当に削除しますか？" } },
+                class: "btn btn-danger p-1 text-xs flex items-center justify-center" do %>
+            🗑️
+          <% end %>
+        </div>
+
+        
+
+      </div>
+    <% end %>
+    <% if @presets.empty? %>
+      <p class="text-sm text-wood-dark">まだプリセットがありません</p>
+    <% end %>
+  </div>
+
+
+
+
+
+</div>
