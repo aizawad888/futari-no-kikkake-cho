@@ -5,13 +5,16 @@
 <div class="bg-app min-h-screen px-4 py-6 space-y-6">
 
   <p class="text-wood-dark text-sm mb-4">
-    ※アプリ内通知はOFFにできません
+    ※アプリ内通知はOFFにできません。
+    ※プッシュ通知機能はテスト中の機能です。
   </p>
 
   <%= form_with url: notification_settings_path, method: :patch, local: true do %>
     <div class="space-y-4">
 
       <% @notification_settings.each do |setting| %>
+        <% next if setting.notification_kind == "weekly_summary" %> <!-- ← 追加 -->
+
         <div class="bg-white rounded-xl shadow-md p-5 space-y-3">
           <h3 class="font-heading text-forest-green font-semibold text-sm">
             <%= t("notification_kinds.#{setting.notification_kind}") %>
@@ -20,11 +23,13 @@
           <% options =
             case setting.notification_kind
             when "new_post"
-              [["すぐ通知", "immediate"], ["1日1回", "daily"]]
+              [["すぐ通知", "immediate"], ["1日1回(20時)", "daily"]]
             when "weekly_summary"
               [["週1回", "weekly"]]
-            when "post_unlocked", "anniversary"
+            when "post_unlocked"
               [["すぐ通知", "immediate"]]
+            when  "anniversary"
+              [["1日1回(0時)", "daily"]]
             end
           %>
 
@@ -39,6 +44,7 @@
 
         </div>
       <% end %>
+
 
     </div>
 

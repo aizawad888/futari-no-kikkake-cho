@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :post_memos, dependent: :destroy
   has_many :presets, dependent: :destroy
+  has_many :push_subscriptions, dependent: :destroy
 
   after_create :create_notification_settings
 
@@ -102,6 +103,46 @@ class User < ApplicationRecord
     setting = user_notification_settings.find_by(notification_kind: kind)
     setting&.should_notify? || false
   end
+
+
+  # プッシュ通知を送信
+  def send_push_notification(title, body, url: nil)
+    push_subscriptions.each do |subscription|
+      begin
+        # URL ヘルパーを使う場合は Rails.application.routes.url_helpers を使う
+        default_url = url || Rails.application.routes.url_helpers.root_url(host: ENV.fetch("APP_HOST", "localhost:3000"))
+
+        # Web Push の送信
+        WebPush.payload_send(
+          message: JSON.generate({
+            title: title,
+            body: body,
+            icon: "/icon.png", # アイコン画像のパス
+            url: default_url # 通知をクリックしたときに開くURL
+          }),
+          endpoint: subscription.endpoint,
+          p256dh: subscription.p256dh,
+          auth: subscription.auth,
+          vapid: {
+            subject: "mailto:#{ENV['VAPID_EMAIL']}", # 送信者のメールアドレス
+            public_key: ENV["VAPID_PUBLIC_KEY"],
+            private_key: ENV["VAPID_PRIVATE_KEY"]
+          }
+        )
+        Rails.logger.info "プッシュ通知送信成功: user_id=#{id}, subscription_id=#{subscription.id}"
+      rescue WebPush::ExpiredSubscription => e
+        # 購読が期限切れの場合は削除
+        Rails.logger.warn "購読が期限切れです: subscription_id=#{subscription.id}"
+        subscription.destroy
+      rescue StandardError => e
+        # その他のエラー
+        Rails.logger.error "プッシュ通知送信エラー: #{e.message}"
+        Rails.logger.error e.backtrace.join("\n")
+      end
+    end
+  end
+
+
 
 
   private

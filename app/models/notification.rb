@@ -2,6 +2,16 @@ class Notification < ApplicationRecord
   belongs_to :user
   belongs_to :notifiable, polymorphic: true, optional: true
 
+  # 通知作成後にプッシュ通知を送信
+  after_create_commit :send_push_notification
+
+  scope :unread, -> { where(read_at: nil) }
+
+  def read?
+    read_at.present?
+  end
+
+
   # 通知の種類を定義
   enum notification_kind: {
     new_post: "new_post",
@@ -37,5 +47,20 @@ class Notification < ApplicationRecord
 
   def post
     notifiable if notifiable_type == "Post"
+  end
+
+  private
+
+  def send_push_notification
+    # ユーザーの通知設定を確認
+    setting = user.user_notification_settings.find_by(
+      notification_kind: notification_kind
+    )
+
+    # プッシュ通知が有効な場合のみ送信
+    return unless setting&.push_enabled?
+
+    # バックグラウンドジョブで送信（後述）
+    SendPushNotificationJob.perform_later(id)
   end
 end

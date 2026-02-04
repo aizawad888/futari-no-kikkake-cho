@@ -8,7 +8,7 @@ class UserNotificationSetting < ApplicationRecord
   FREQUENCY_OPTIONS = {
     "new_post" => %w[immediate daily],
     "post_unlocked" => %w[immediate],
-    "anniversary" => %w[immediate],
+    "anniversary" => %w[daily],
     "weekly_summary" => %w[weekly]
   }.freeze
 
@@ -16,7 +16,7 @@ class UserNotificationSetting < ApplicationRecord
   DEFAULT_FREQUENCIES = {
     "new_post" => "immediate",
     "post_unlocked" => "immediate",
-    "anniversary" => "immediate",
+    "anniversary" => "daily",
     "weekly_summary" => "weekly"
   }.freeze
 

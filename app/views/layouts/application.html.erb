@@ -8,15 +8,12 @@
     </title>
 
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <%= csrf_meta_tags %>
+      <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= yield :head %>
 
     <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
@@ -36,12 +33,18 @@
     <meta property="og:url" content="<%= request.original_url %>">
     <meta property="og:image" content="<%= image_url('ogp.png') %>">
 
+    <%# iOS 用の meta タグ %>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="ふたりの察し手帳">
+
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
 
   </head>
 
-  <body class="bg-light-cream">
+  <body class="bg-light-cream" data-user-signed-in="<%= user_signed_in? %>" 
+      data-vapid-public-key="<%= Rails.application.credentials.vapid[:public_key] %>">
     <% unless (controller_name == 'sessions' && action_name == 'new') ||
       (controller_name == 'home' && action_name == 'index') ||
       (controller_name == 'passwords' && action_name == 'new') %>

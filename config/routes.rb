@@ -80,4 +80,6 @@ Rails.application.routes.draw do
   end
 
   get "main/archive", to: "main#archive", as: :archive_posts
+
+  resources :push_subscriptions, only: [ :create ]
 end
