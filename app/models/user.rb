@@ -110,14 +110,14 @@ class User < ApplicationRecord
     push_subscriptions.each do |subscription|
       begin
         # URL ヘルパーを使う場合は Rails.application.routes.url_helpers を使う
-        default_url = url || Rails.application.routes.url_helpers.root_url(host: ENV.fetch('APP_HOST', 'localhost:3000'))
-        
+        default_url = url || Rails.application.routes.url_helpers.root_url(host: ENV.fetch("APP_HOST", "localhost:3000"))
+
         # Web Push の送信
         WebPush.payload_send(
           message: JSON.generate({
             title: title,
             body: body,
-            icon: '/icon.png', # アイコン画像のパス
+            icon: "/icon.png", # アイコン画像のパス
             url: default_url # 通知をクリックしたときに開くURL
           }),
           endpoint: subscription.endpoint,
@@ -125,8 +125,8 @@ class User < ApplicationRecord
           auth: subscription.auth,
           vapid: {
             subject: "mailto:#{ENV['VAPID_EMAIL']}", # 送信者のメールアドレス
-            public_key: ENV['VAPID_PUBLIC_KEY'],
-            private_key: ENV['VAPID_PRIVATE_KEY']
+            public_key: ENV["VAPID_PUBLIC_KEY"],
+            private_key: ENV["VAPID_PRIVATE_KEY"]
           }
         )
         Rails.logger.info "プッシュ通知送信成功: user_id=#{id}, subscription_id=#{subscription.id}"

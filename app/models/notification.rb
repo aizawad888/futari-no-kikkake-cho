@@ -63,6 +63,4 @@ class Notification < ApplicationRecord
     # バックグラウンドジョブで送信（後述）
     SendPushNotificationJob.perform_later(id)
   end
-
-  
 end

@@ -5,7 +5,7 @@ class PushSubscriptionsController < ApplicationController
     subscription = current_user.push_subscriptions.find_or_initialize_by(
       endpoint: subscription_params[:endpoint]
     )
-    
+
     subscription.assign_attributes(
       p256dh: subscription_params[:keys][:p256dh],
       auth: subscription_params[:keys][:auth]
@@ -21,6 +21,6 @@ class PushSubscriptionsController < ApplicationController
   private
 
   def subscription_params
-    params.require(:subscription).permit(:endpoint, keys: [:p256dh, :auth])
+    params.require(:subscription).permit(:endpoint, keys: [ :p256dh, :auth ])
   end
 end

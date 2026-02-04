@@ -73,4 +73,4 @@ gem "resend"
 
 gem "kaminari"
 
-gem 'web-push'
+gem "web-push"

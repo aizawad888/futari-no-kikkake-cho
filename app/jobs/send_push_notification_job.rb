@@ -4,12 +4,22 @@ class SendPushNotificationJob < ApplicationJob
   def perform(notification_id)
     notification = Notification.find(notification_id)
     user = notification.user
-    
+
+    setting = UserNotificationSetting.find_by(
+      user: user,
+      notification_kind: notification.notification_kind
+    )
+
+    # プッシュOFFなら送らない
+    return if setting&.push_enabled == false
+
+    # daily/weeklyの場合は即座に送らない(バッチ処理で送る)
+    return unless setting&.frequency == "immediate"
+
     return unless user.push_subscriptions.exists?
-    
-    # 通知の内容を生成
+
     message_data = build_message(notification)
-    
+
     user.push_subscriptions.each do |subscription|
       send_push(subscription, message_data)
     end
@@ -21,62 +31,62 @@ class SendPushNotificationJob < ApplicationJob
 
   def build_message(notification)
     case notification.notification_kind
-    when 'new_post'
+    when "new_post"
       # 投稿が存在する場合は、カテゴリのヒント文言を使用
       body_text = if notification.post.present?
         "📝 #{notification.post.category.hint_text}"
       else
-        '新しい投稿がありました'
+        "新しい投稿がありました"
       end
-      
+
       {
         title: notification.message,
         body: body_text,
         url: notification_url(notification),
-        icon: '/icon-192x192.png',
-        badge: '/badge-72x72.png'
+        icon: "/icon-192x192.png",
+        badge: "/badge-72x72.png"
       }
-      
-    when 'post_unlocked'
+
+    when "post_unlocked"
       # アンロック後は実際のタイトルを表示
       body_text = if notification.post.present?
         "📝 #{notification.post.title}"
       else
-        '答えが見られるようになりました'
+        "答えが見られるようになりました"
       end
-      
+
       {
         title: notification.message,
         body: body_text,
         url: notification_url(notification),
-        icon: '/icon-192x192.png',
-        badge: '/badge-72x72.png'
+        icon: "/icon-192x192.png",
+        badge: "/badge-72x72.png"
       }
-      
-    when 'anniversary'
+
+    when "anniversary"
       # 記念日の場合は記念日のタイトルを表示
       body_text = if notification.notifiable.present?
         "🎉 #{notification.notifiable.title}"
       else
-        '今日は記念日です'
+        "今日は記念日です"
       end
-      
+
       {
         title: notification.message,
         body: body_text,
         url: notification_url(notification),
-        icon: '/icon-192x192.png',
-        badge: '/badge-72x72.png'
+        icon: "/icon-192x192.png",
+        badge: "/badge-72x72.png"
       }
-      
+
     else
       # 未知の通知種別の場合
       {
-        title: notification.message || '新しい通知',
-        body: '通知があります',
+        title: notification.message || "新しい通知",
+        body: "通知があります",
         url: root_url,
-        icon: '/icon-192x192.png',
-        badge: '/badge-72x72.png'
+        icon: "/icon-192x192.png",
+        badge: "/badge-72x72.png"
       }
     end
   end
@@ -99,11 +109,11 @@ class SendPushNotificationJob < ApplicationJob
       auth: subscription.auth,
       vapid: {
         subject: "mailto:#{ENV['VAPID_EMAIL']}",
-        public_key: ENV['VAPID_PUBLIC_KEY'],
-        private_key: ENV['VAPID_PRIVATE_KEY']
+        public_key: ENV["VAPID_PUBLIC_KEY"],
+        private_key: ENV["VAPID_PRIVATE_KEY"]
       }
     )
-    
+
     Rails.logger.info("プッシュ通知を送信しました: #{subscription.id}")
   rescue WebPush::InvalidSubscription, WebPush::ExpiredSubscription => e
     Rails.logger.warn("無効な購読情報: #{e.message}")
@@ -117,7 +127,7 @@ class SendPushNotificationJob < ApplicationJob
     # 通知をクリックしたときの遷移先
     if notification.post.present?
       post_url(notification.post)
-    elsif notification.notifiable_type == 'Anniversary'
+    elsif notification.notifiable_type == "Anniversary"
       root_url  # または記念日の詳細ページ
     else
       root_url
@@ -127,15 +137,15 @@ class SendPushNotificationJob < ApplicationJob
   def post_url(post)
     Rails.application.routes.url_helpers.post_url(
       post,
-      host: ENV['APP_HOST'] || 'localhost:3000',
-      protocol: Rails.env.production? ? 'https' : 'http'
+      host: ENV["APP_HOST"] || "localhost:3000",
+      protocol: Rails.env.production? ? "https" : "http"
     )
   end
 
   def root_url
     Rails.application.routes.url_helpers.root_url(
-      host: ENV['APP_HOST'] || 'localhost:3000',
-      protocol: Rails.env.production? ? 'https' : 'http'
+      host: ENV["APP_HOST"] || "localhost:3000",
+      protocol: Rails.env.production? ? "https" : "http"
     )
   end
 end
