@@ -1,7 +1,8 @@
 class User < ApplicationRecord
   # Devise
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable,
+         :omniauthable, omniauth_providers: [ :google_oauth2 ]
 
   has_many :notifications, dependent: :destroy
   has_many :user_notification_settings, dependent: :destroy
@@ -9,6 +10,8 @@ class User < ApplicationRecord
   has_many :post_memos, dependent: :destroy
   has_many :presets, dependent: :destroy
   has_many :push_subscriptions, dependent: :destroy
+  has_many :social_accounts, dependent: :destroy
+
 
   after_create :create_notification_settings
 
@@ -34,8 +37,12 @@ class User < ApplicationRecord
   # バリデーション
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true
-  validates :sex, presence: true
-  validates :icon, presence: true
+  validates :sex,  presence: true, unless: :oauth_user?
+  validates :icon, presence: true, unless: :oauth_user?
+
+  def oauth_user?
+    provider.present?
+  end
 
   # ユーザー作成時に自動でmy_codeを発行
   after_create :ensure_my_code
@@ -143,6 +150,14 @@ class User < ApplicationRecord
   end
 
 
+  def password_set?
+    encrypted_password.present?
+  end
+
+  def profile_completed?
+    sex.present? && icon.present? && password_set?
+  end
+
 
 
   private
@@ -152,7 +167,7 @@ class User < ApplicationRecord
       user_notification_settings.create!(
         notification_kind: kind,
         push_enabled: true,
-        frequency: kind == "weekly_summary" ? "weekly" : "immediate"
+        frequency: UserNotificationSetting::DEFAULT_FREQUENCIES[kind]
       )
     end
   end

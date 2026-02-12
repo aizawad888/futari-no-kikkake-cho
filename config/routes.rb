@@ -8,7 +8,8 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: {
     registrations: "users/registrations",
-    sessions: "users/sessions"
+    sessions: "users/sessions",
+    omniauth_callbacks: "users/omniauth_callbacks"
   }
 
   # デモモード
@@ -82,4 +83,8 @@ Rails.application.routes.draw do
   get "main/archive", to: "main#archive", as: :archive_posts
 
   resources :push_subscriptions, only: [ :create ]
+
+  resource :social_account, only: [] do
+    delete :destroy
+  end
 end

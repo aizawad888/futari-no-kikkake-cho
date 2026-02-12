@@ -22,6 +22,25 @@
     <%= link_to "パスワードを変更する", edit_user_registration_path,
       class: "btn btn-secondary mt-2 w-full text-center" %>
 
+    <% if @user.provider.present? %>
+      <p class="font-semibold">Google連携済み</p>
+      <%= button_to "連携解除",
+        social_account_path,
+        class: "btn btn-danger w-full text-center",
+        method: :delete,
+        form: { class: "w-full" },
+        data: { turbo_confirm: "本当に解除しますか？" }
+         %>
+    <% else %>
+      <%= button_to "Googleと連携",
+      user_google_oauth2_omniauth_authorize_path,
+      method: :post,
+      data: { turbo: false },
+      form: { class: "w-full" },
+      class: "btn btn-secondary mt-2 w-full text-center" %>
+    <% end %>
+    
+
   </div>
 
   <!-- 通知設定カード -->
