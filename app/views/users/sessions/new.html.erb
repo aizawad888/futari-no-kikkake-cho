@@ -59,6 +59,16 @@
       </div>
     <% end %>
 
+    <div class="text-center">
+      <%= button_to "Googleでログイン",
+              user_google_oauth2_omniauth_authorize_path,
+              method: :post,
+              data: { turbo: false },
+              class: "btn btn-secondary w-full" %>
+    </div>
+
+
+
     <div class="text-sm text-center">
       <%= render "users/shared/links" %>
     </div>

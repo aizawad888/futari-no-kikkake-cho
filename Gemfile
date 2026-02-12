@@ -74,3 +74,7 @@ gem "resend"
 gem "kaminari"
 
 gem "web-push"
+
+gem "omniauth"
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"

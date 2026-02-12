@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema[7.2].define(version: 2026_01_30_011014) do
+=======
+ActiveRecord::Schema[7.2].define(version: 2026_02_12_011247) do
+>>>>>>> e8beb7c (feat:#52_googleログイン実装)
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -121,6 +125,17 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_30_011014) do
     t.index ["user_id"], name: "index_rule_items_on_user_id"
   end
 
+  create_table "social_accounts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "provider", null: false
+    t.string "uid", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["provider", "uid"], name: "index_social_accounts_on_provider_and_uid", unique: true
+    t.index ["user_id", "provider"], name: "index_social_accounts_on_user_id_and_provider", unique: true
+    t.index ["user_id"], name: "index_social_accounts_on_user_id"
+  end
+
   create_table "subscriptions", force: :cascade do |t|
     t.text "endpoint"
     t.string "p256dh"
@@ -155,6 +170,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_30_011014) do
     t.string "partner_code"
     t.integer "sex"
     t.datetime "last_viewed_at"
+    t.string "provider"
+    t.string "uid"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["my_code"], name: "index_users_on_my_code", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -174,5 +191,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_30_011014) do
   add_foreign_key "push_subscriptions", "users"
   add_foreign_key "rule_items", "pairs"
   add_foreign_key "rule_items", "users"
+  add_foreign_key "social_accounts", "users"
   add_foreign_key "user_notification_settings", "users"
 end
