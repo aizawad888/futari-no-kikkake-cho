@@ -18,6 +18,20 @@
   }
 })();
 
+// ★★★ Service Worker の登録（追加）★★★
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(registration => {
+        console.log('✅ Service Worker 登録成功:', registration.scope);
+      })
+      .catch(error => {
+        console.error('❌ Service Worker 登録失敗:', error);
+      });
+  });
+}
+
+
 // 既存のimport文
 import "@hotwired/turbo-rails"
 import "@hotwired/stimulus"
@@ -163,3 +177,16 @@ document.addEventListener("turbo:load", () => {
 });
 
 
+// プッシュ通知関係
+import { subscribeToPushNotifications } from './push_notifications'
+
+// ページ読み込み時に実行（ログインしている場合のみ）
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOMContentLoaded イベント発火');
+  console.log('userSignedIn:', document.body.dataset.userSignedIn);
+  
+  if (document.body.dataset.userSignedIn === 'true') {
+    console.log('subscribeToPushNotifications を呼び出します'); // ← このログを追加
+    subscribeToPushNotifications();
+  }
+});

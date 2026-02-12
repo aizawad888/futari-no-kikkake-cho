@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_01_29_034606) do
+ActiveRecord::Schema[7.2].define(version: 2026_02_12_011247) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -98,6 +98,16 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_29_034606) do
     t.index ["user_id"], name: "index_presets_on_user_id"
   end
 
+  create_table "push_subscriptions", force: :cascade do |t|
+    t.text "endpoint"
+    t.text "p256dh"
+    t.text "auth"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_push_subscriptions_on_user_id"
+  end
+
   create_table "rule_items", force: :cascade do |t|
     t.bigint "pair_id", null: false
     t.bigint "user_id", null: false
@@ -109,6 +119,25 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_29_034606) do
     t.datetime "updated_at", null: false
     t.index ["pair_id"], name: "index_rule_items_on_pair_id"
     t.index ["user_id"], name: "index_rule_items_on_user_id"
+  end
+
+  create_table "social_accounts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "provider", null: false
+    t.string "uid", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["provider", "uid"], name: "index_social_accounts_on_provider_and_uid", unique: true
+    t.index ["user_id", "provider"], name: "index_social_accounts_on_user_id_and_provider", unique: true
+    t.index ["user_id"], name: "index_social_accounts_on_user_id"
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.text "endpoint"
+    t.string "p256dh"
+    t.string "auth"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_notification_settings", force: :cascade do |t|
@@ -137,6 +166,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_29_034606) do
     t.string "partner_code"
     t.integer "sex"
     t.datetime "last_viewed_at"
+    t.string "provider"
+    t.string "uid"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["my_code"], name: "index_users_on_my_code", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -153,7 +184,9 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_29_034606) do
   add_foreign_key "posts", "pairs"
   add_foreign_key "posts", "users"
   add_foreign_key "presets", "users"
+  add_foreign_key "push_subscriptions", "users"
   add_foreign_key "rule_items", "pairs"
   add_foreign_key "rule_items", "users"
+  add_foreign_key "social_accounts", "users"
   add_foreign_key "user_notification_settings", "users"
 end
