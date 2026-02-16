@@ -81,7 +81,7 @@ gem "omniauth-rails_csrf_protection"
 
 
 group :development, :test do
-  gem 'rspec-rails'
+  gem "rspec-rails"
 end
 
 group :development, :test do
