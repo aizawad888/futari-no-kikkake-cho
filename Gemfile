@@ -78,3 +78,12 @@ gem "web-push"
 gem "omniauth"
 gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
+
+
+group :development, :test do
+  gem 'rspec-rails'
+end
+
+group :development, :test do
+  gem "factory_bot_rails"
+end
